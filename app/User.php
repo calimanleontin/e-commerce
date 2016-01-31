@@ -23,4 +23,60 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function products()
+    {
+        return $this->hasMany('App\Products');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function categories()
+    {
+        return $this->hasMany('App\Categories');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function cart()
+    {
+        return $this->hasOne('App\Cart');
+    }
+
+    public function order()
+    {
+        return $this->hasMany('App\Orders');
+    }
+
+    public function is_admin()
+    {
+        if($this->role == 'admin')
+            return true;
+        return false;
+    }
+
+    public function is_moderator()
+    {
+        if($this->role == 'moderator')
+            return true;
+        return false;
+    }
+
+    public function can_create_category()
+    {
+        return $this->is_admin();
+    }
+
+    public function can_create_product()
+    {
+        if($this->is_admin() || $this->is_moderator())
+            return true;
+        return false;
+    }
+
 }

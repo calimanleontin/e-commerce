@@ -31,9 +31,9 @@ class Products extends Model
         return $this->belongsToMany('App\Cart')->withTimestamps();
     }
 
-    public function order()
+    public function orders()
     {
-        return $this->belongsToMany('App\Order')->withTimestamps();
+        return $this->belongsToMany('App\Orders')->withTimestamps();
     }
 
 
