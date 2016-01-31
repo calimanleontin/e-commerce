@@ -48,11 +48,17 @@ class User extends Authenticatable
         return $this->hasOne('App\Cart');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function order()
     {
         return $this->hasMany('App\Orders');
     }
 
+    /**
+     * @return bool
+     */
     public function is_admin()
     {
         if($this->role == 'admin')
@@ -60,6 +66,9 @@ class User extends Authenticatable
         return false;
     }
 
+    /**
+     * @return bool
+     */
     public function is_moderator()
     {
         if($this->role == 'moderator')
@@ -67,11 +76,17 @@ class User extends Authenticatable
         return false;
     }
 
+    /**
+     * @return bool
+     */
     public function can_create_category()
     {
         return $this->is_admin();
     }
 
+    /**
+     * @return bool
+     */
     public function can_create_product()
     {
         if($this->is_admin() || $this->is_moderator())
