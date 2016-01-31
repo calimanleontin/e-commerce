@@ -26,6 +26,12 @@ Route::get('/', function () {
 |
 */
 
+
+
 Route::group(['middleware' => ['web']], function () {
-    //
+    Route::get('/home',['as' => 'home', 'uses' => 'ProductController@index']);
+    Route::controllers([
+        'auth' => 'Auth\AuthController',
+        'password' => 'Auth\PasswordController',
+    ]);
 });
