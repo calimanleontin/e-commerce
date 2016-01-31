@@ -16,7 +16,7 @@ class Cart extends Migration
         {
             $table->increments('id');
             $table->integer('total_price');
-            $table->integer('owner');
+            $table->integer('owner')->unsigned()->default(0);
             $table->foreign('owner')
                 ->references('id')
                 ->on('users')
@@ -27,12 +27,12 @@ class Cart extends Migration
 
         Schema::create('cart_product', function(Blueprint $table)
         {
-            $table->integer('product_id');
+            $table->integer('product_id')->unsigned()->index();
             $table->foreign('product_id')
                 ->references('id')
                 ->on('products')
                 ->onDelete('cascade');
-            $table->integer('cart_id');
+            $table->integer('cart_id')->unsigned()->index();
             $table->foreign('cart_id')
                 ->references('id')
                 ->on('cart')

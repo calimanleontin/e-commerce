@@ -15,7 +15,7 @@ class OrderHistory extends Migration
         Schema::create('order_history',function(Blueprint $table)
         {
             $table->increments('id');
-            $table->integer('owner');
+            $table->integer('owner')->unsigned()->default(0);
             $table->foreign('owner')
                 ->references('id')
                 ->on('users')
@@ -26,12 +26,13 @@ class OrderHistory extends Migration
 
         Schema::create('order_history-product', function(Blueprint $table)
         {
-            $table->integer('product_id');
+            $table->integer('product_id')->unsigned()->index();
             $table->foreign('product_id')
                 ->references('id')
                 ->on('products')
                 ->onDelete('cascade');
-            $table->integer('order_history_id')
+            $table->integer('order_history_id')->unsigned()->index();
+            $table->foreign('order_history_id')
                 ->references('id')
                 ->on('order_history')
                 ->onDelete('cascade');

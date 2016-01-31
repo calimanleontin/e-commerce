@@ -18,7 +18,7 @@ class Categories extends Migration
             $table->string('title')->unique();
             $table->string('slug')->unique();
             $table->text('description');
-            $table->integer('author_id');
+            $table->integer('author_id')->unsigned()->default(0);
             $table->foreign('author_id')
                 ->references('id')
                 ->on('users')
@@ -26,7 +26,23 @@ class Categories extends Migration
             $table->timestamps();
 
         });
-    }
+
+        Schema::create('product_category', function(Blueprint $table)
+        {
+            $table->integer('product_id')->unsigned()->index();
+            $table->foreign('product_id')
+                ->references('id')
+                ->on('products')
+                ->onDelete('cascade');
+            $table->integer('category_id')->unsigned()->index();
+            $table->foreign('category_id')
+                ->references('id')
+                ->on('categories')
+                ->onDelete('cascade');
+        });
+
+
+}
 
     /**
      * Reverse the migrations.
@@ -36,5 +52,7 @@ class Categories extends Migration
     public function down()
     {
         Schema::drop('categories');
+        Schema::drop('product_category');
+
     }
 }
