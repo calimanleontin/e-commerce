@@ -50,7 +50,7 @@ class UserController extends Controller
         $user->password = bcrypt($password);
         $user->save();
         Auth::login($user);
-        return  redirect('/auth/login')->withErrors('registered successfully');
+        return  redirect('/')->withMessage('Registered successfully');
     }
 
     /**
@@ -71,12 +71,10 @@ class UserController extends Controller
 //        die();
         if (Hash::check($password, $user->password)) {
             Auth::login($user);
-            return view('auth.register')->withErrors('Logged in successfully');
+            return redirect('/')->withMessage('Logged in successfully');
         }
         else
-            return view('auth.register')->withErrors('wrong password');
-
-
+            return view('auth.login')->withErrors('wrong password');
     }
 
     /**
@@ -85,7 +83,7 @@ class UserController extends Controller
     public function getLogout()
     {
         Auth::logout();
-        return redirect('/auth/register')->withErrors('logout');
+        return redirect('/')->withMessages('You logged out successfully');
     }
 
 }

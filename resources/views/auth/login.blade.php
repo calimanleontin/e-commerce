@@ -1,4 +1,5 @@
 @extends('app')
+@section('content')
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-md-8 col-md-offset-2">
@@ -46,10 +47,11 @@
 	</div>
 </div>
 
-@if (Auth::guest())
-		<a href="{{ url('/auth/login') }}">Login</a>
-		<a href="{{ url('/auth/register') }}">Register</a>
-@else
-{{Auth::user()->name}}
-	@endif
+{{--@if (Auth::guest())--}}
+		{{--<a href="{{ url('/auth/login') }}">Login</a>--}}
+		{{--<a href="{{ url('/auth/register') }}">Register</a>--}}
+{{--@else--}}
+{{--{{Auth::user()->name}}--}}
+	{{--@endif--}}
 
+@endsection
