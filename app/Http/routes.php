@@ -41,6 +41,8 @@ Route::group(['middleware' => ['web']], function () {
     {
         Route::get('category/create','CategoryController@create');
         Route::post('category/store','CategoryController@store');
+        Route::get('/product/create','ProductController@create');
+        Route::post('/product/store','ProductController@store');
 
     });
 });
