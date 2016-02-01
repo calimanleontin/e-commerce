@@ -36,11 +36,12 @@ class UserController extends Controller
     {
         $name = $request->input('name');
         $email = $request->input('email');
-
         $password = $request->input('password');
+        if($name == '' || $email == '' || $password == '')
+            return view('auth.register')->withName($name)->withEmail($email)->withErrors('Please fill all the fields');
         $password_confirmation = $request->input('password_confirmation');
         if($password != $password_confirmation)
-            return view('auth.register')->withErrors('The passwords must coincide');
+            return view('auth.register')->withName($name)->withEmail($email)->withErrors('The passwords must coincide');
         $user = new User();
 //        var_dump($user);
 //        die();

@@ -1,4 +1,4 @@
-
+@extends('app')
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-md-8 col-md-offset-2">
@@ -22,14 +22,23 @@
 						<div class="form-group">
 							<label class="col-md-4 control-label">Name</label>
 							<div class="col-md-6">
-								<input type="text" class="form-control" name="name" value="{{ old('name') }}">
+								@if(!empty($name))
+								<input type="text" class="form-control" name="name" value="{{$name}}">
+									@else
+								<input type="text" class="form-control" name="name" >
+								@endif
+
 							</div>
 						</div>
 
 						<div class="form-group">
 							<label class="col-md-4 control-label">E-Mail Address</label>
 							<div class="col-md-6">
-								<input type="email" class="form-control" name="email" value="{{ old('email') }}">
+								@if(!empty($email))
+									<input type="email" class="form-control" name="email" value="{{$email}}">
+								@else
+									<input type="email" class="form-control" name="email" >
+								@endif
 							</div>
 						</div>
 
