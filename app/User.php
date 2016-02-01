@@ -1,11 +1,12 @@
 <?php
-
-namespace App;
-
-use Illuminate\Foundation\Auth\User as Authenticatable;
-
-class User extends Authenticatable
-{
+namespace  App;
+use Illuminate\Auth\Authenticatable;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Auth\Passwords\CanResetPassword;
+use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
+use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
+class User extends Model implements AuthenticatableContract, CanResetPasswordContract {
+    use Authenticatable, CanResetPassword;
     /**
      * The attributes that are mass assignable.
      *
@@ -30,6 +31,11 @@ class User extends Authenticatable
     public function products()
     {
         return $this->hasMany('App\Products');
+    }
+
+    public function numele()
+    {
+        return $this->name;
     }
 
     /**
@@ -84,9 +90,7 @@ class User extends Authenticatable
         return $this->is_admin();
     }
 
-    /**
-     * @return bool
-     */
+
     public function can_create_product()
     {
         if($this->is_admin() || $this->is_moderator())

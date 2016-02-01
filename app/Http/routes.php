@@ -30,8 +30,12 @@ Route::get('/', function () {
 
 Route::group(['middleware' => ['web']], function () {
     Route::get('/home',['as' => 'home', 'uses' => 'ProductController@index']);
-    Route::controllers([
-        'auth' => 'Auth\AuthController',
-        'password' => 'Auth\PasswordController',
-    ]);
+
+    Route::get('auth/login', 'UserController@getLogin');
+    Route::post('auth/login', 'UserController@postLogin');
+    Route::get('auth/logout', 'UserController@getLogout');
+
+// Registration routes...
+    Route::get('auth/register', 'UserController@getRegister');
+    Route::post('auth/register', 'UserController@postRegister');
 });

@@ -36,7 +36,6 @@
 							<div class="col-md-6 col-md-offset-4">
 								<button type="submit" class="btn btn-primary">Login</button>
 
-								<a class="btn btn-link" href="{{ url('/password/email') }}">Forgot Your Password?</a>
 							</div>
 						</div>
 					</form>
@@ -45,3 +44,11 @@
 		</div>
 	</div>
 </div>
+
+@if (Auth::guest())
+		<a href="{{ url('/auth/login') }}">Login</a>
+		<a href="{{ url('/auth/register') }}">Register</a>
+@else
+{{Auth::user()->name}}
+	@endif
+
