@@ -36,6 +36,7 @@ Route::group(['middleware' => ['web']], function () {
 // Registration routes...
     Route::get('auth/register', 'UserController@getRegister');
     Route::post('auth/register', 'UserController@postRegister');
+    Route::get('categories', 'CategoryController@index');
     Route::group(['middleware' => ['auth']], function()
     {
         Route::get('category/create','CategoryController@create');

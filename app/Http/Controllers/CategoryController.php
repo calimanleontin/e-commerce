@@ -27,4 +27,11 @@ class CategoryController extends Controller
         $category->save();
         return redirect('/')->withMessage('New category created');
     }
+
+    public function index()
+    {
+        $categories = Categories::all();
+        return view('home')->withCategories($categories)->withTitle('Categories');
+
+    }
 }
