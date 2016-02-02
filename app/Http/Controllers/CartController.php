@@ -46,6 +46,8 @@ class CartController extends Controller
         if($product->quantity > 0)
         {
             $cart->addNewProduct($product->id);
+            $product->quantity -=1;
+            $product->save();
             Session::put('cart',$cart);
         }
         else

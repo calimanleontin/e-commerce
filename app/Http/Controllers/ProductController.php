@@ -41,6 +41,7 @@ class ProductController extends Controller
         $product->name = $name;
         $product->description = $description;
         $product->price = $price;
+        $product->quantity = $request->input('quantity');
         $product->author_id = $user_id;
         $product->slug = str_slug($request->input('name'));
         $product->active = 1;

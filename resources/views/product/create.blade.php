@@ -14,6 +14,10 @@
             Price:
         <input type="number" name="price" placeholder="Price" class="form-control">
         </div>
+        <div class="form-group">
+            Quantity:
+            <input type="number" name="quantity" placeholder="Quantity" class="form-control">
+        </div>
 
         <div class="form-group">
             Description:
