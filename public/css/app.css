@@ -11,6 +11,9 @@ html {
 .left{
   margin-right:3px;
 }
+.right{
+  float:left;
+}
 .cart
 {
   bottom:0px;

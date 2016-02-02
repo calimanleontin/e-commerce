@@ -44,10 +44,10 @@
                 </li>
 
             </ul>
-            <ul class="nav navbar-nav navbar-right">
+            <ul class="nav navbar-nav navbar-right list-inline">
                 @if (Auth::guest())
                     <li>
-                        <a href="{{ url('/auth/login') }}">Login</a>
+                        <a href="{{ url('/auth/login') }}" class="l">Login</a>
                     </li>
                     <li>
                         <a href="{{ url('/auth/register') }}">Register</a>
@@ -55,6 +55,10 @@
             </ul>
 
         @else
+                <li>
+                    <a href="{{ url('/auth/logout') }}" >Logout</a>
+                </li>
+            <li>
             <div class="mini">
                 <button class="btn btn-default dropdown-toggle " type="button" id="menu1" data-toggle="dropdown">{{Auth::user()->name}}
                     <span class="caret"></span></button>
@@ -67,8 +71,11 @@
                         <li role="presentation"><a role="menuitem" tabindex="-1" href="/product/create">Add product</a></li>
                     @endif
 
+            </div>
+            </li>
                 </ul>
-        </div>
+
+
                 @endif
         </div>
     </div>

@@ -15,7 +15,7 @@
                 {{$product->name}}
                 </div>
                 <div class="cart">
-                    Add to cart
+                    <a href = '/to-cart/{{$product->id}}'>Add to cart</a>
                 </div>
             </div>
         @endforeach

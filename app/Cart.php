@@ -10,7 +10,7 @@ class Cart
     /**
      * @param $owner
      */
-    public function set_owner($owner)
+    public function setOwnerId($owner)
     {
         $this->owner_id = $owner;
     }
@@ -63,7 +63,10 @@ class Cart
      */
     public function addNewProduct($product_id)
     {
-        $this->relation[$product_id] = 1;
+        if (array_key_exists($product_id,$this->relation))
+            $this->increaseQuantity($product_id);
+        else
+            $this->relation[$product_id] = 1;
     }
 
     /**
@@ -72,5 +75,13 @@ class Cart
     public function removeProduct($product_id)
     {
         unset($this->relation[$product_id]);
+    }
+
+    /**
+     * @return array
+     */
+    public function getCart()
+    {
+        return $this->relation;
     }
 }
