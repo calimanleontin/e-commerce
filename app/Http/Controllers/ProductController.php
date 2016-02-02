@@ -53,7 +53,14 @@ class ProductController extends Controller
                 $product->categories()->attach($category->id);
             }
         return redirect('/')->withMessage('New product created');
+    }
 
-
+    public function show($slug)
+    {
+        $product = Products::where('slug',$slug)->first();
+//        $product->views += 1;
+//        $product->save();
+        $categories = Categories::all();
+        return view('product.show')->withProduct($product)->withCategories($categories);
     }
 }

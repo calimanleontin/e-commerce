@@ -33,6 +33,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::post('auth/login', 'UserController@postLogin');
     Route::get('auth/logout', 'UserController@getLogout');
     Route::get('/category/{slug}','CategoryController@show');
+    Route::Get('/product/{slug}','ProductController@show');
 
 // Registration routes...
     Route::get('auth/register', 'UserController@getRegister');

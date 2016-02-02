@@ -12,10 +12,10 @@
         @foreach($products as $product)
             <div class="col-md-3 product">
                 <div class="panel-title  title">
-                {{$product->name}}
+                <a href="/product/{{$product->slug}}">{{$product->name}} </a>
                 </div>
                 <div class="cart">
-                    <a href = '/to-cart/{{$product->id}}'>Add to cart</a>
+                    <a href = '/to-cart/{{$product->id}}'>Add to cart </a>
                 </div>
             </div>
         @endforeach
