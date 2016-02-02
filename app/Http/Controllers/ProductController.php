@@ -61,6 +61,7 @@ class ProductController extends Controller
 //        $product->views += 1;
 //        $product->save();
         $categories = Categories::all();
+//        $comments = $product->comments();
         return view('product.show')->withProduct($product)->withCategories($categories);
     }
 }
