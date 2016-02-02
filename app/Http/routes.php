@@ -44,6 +44,7 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('/product/create','ProductController@create');
         Route::post('/product/store','ProductController@store');
         Route::get('/to-cart/{id}','CartController@add')->where('id', '[0-9]+');
+        Route::get('/cart/index','CartController@index');
 
     });
 });

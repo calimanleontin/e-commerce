@@ -70,6 +70,8 @@
                     @if(!Auth::guest() && Auth::user()->can_create_product())
                         <li role="presentation"><a role="menuitem" tabindex="-1" href="/product/create">Add product</a></li>
                     @endif
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="/cart/index">My cart</a></li>
+
 
             </div>
             </li>

@@ -24,6 +24,7 @@ class Products extends Migration
             $table->string('description');
             $table->string('slug')->unique();
             $table->integer('category_id');
+            $table->integer('quantity')->unsigned()->default(0);
             $table->boolean('active')->default(1);
             $table->bigInteger('amount')->unsigned()->default(0);
             $table->boolean('available');

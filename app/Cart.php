@@ -5,7 +5,32 @@ namespace App;
 class Cart
 {
     private $owner_id;
+    private $sum;
     private $relation = array();
+
+    /**
+     * @return mixed
+     */
+    public function getSum()
+    {
+        return $this->sum;
+    }
+
+    /**
+     * @param mixed $sum
+     */
+    public function setSum($sum)
+    {
+        $this->sum = $sum;
+    }
+
+    /**
+     * @param $price
+     */
+    public function increaseSum($price)
+    {
+        $this->sum += $price;
+    }
 
     /**
      * @param $owner
