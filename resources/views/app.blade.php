@@ -97,7 +97,7 @@
 
 
     <div class="row">
-        <div class="col-md-10 col-md-offset-1">
+        <div class="col-md-9 ">
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h2>@yield('title')</h2>
@@ -105,6 +105,18 @@
                 </div>
                 <div class="panel-body">
                     @yield('content')
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-2 left ">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h2>@yield('category-title')</h2>
+                    @yield('category-title-meta')
+                </div>
+                <div class="panel-body">
+                    @yield('category-content')
                 </div>
             </div>
         </div>

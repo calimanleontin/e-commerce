@@ -31,6 +31,9 @@ class ProductController extends Controller
     {
         $categories = $request->input('category');
         $name = $request->input('name');
+        $duplicate = Products::where('name',$name)->first();
+        if($duplicate)
+            return redirect('/product/create')->withErrors('The name already exists');
         $description = $request->input('description');
         $price = $request->input('price');
         $user_id = $request->user()->id;
@@ -42,11 +45,12 @@ class ProductController extends Controller
         $product->slug = str_slug($request->input('name'));
         $product->active = 1;
         $product->save();
-        foreach($categories as $category)
-        {
-            $category = Categories::where('title',$category)->first();
-            $product->categories()->attach($category->id);
-        }
+        if($categories)
+            foreach($categories as $category)
+            {
+                $category = Categories::where('title',$category)->first();
+                $product->categories()->attach($category->id);
+            }
         return redirect('/')->withMessage('New product created');
 
 

@@ -1,25 +1,76 @@
 <?php
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
 
-class Cart extends Model
+class Cart
 {
-    protected $guarded = [];
+    private $owner_id;
+    private $relation = array();
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @param $owner
      */
-    public function owner()
+    public function set_owner($owner)
     {
-        return $this->belongsTo('App\User');
+        $this->owner_id = $owner;
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @return mixed
      */
-    public function products()
+    public function getOwnerId()
     {
-        return $this->belongsToMany('App\Products')->withTimestamps();
+        return $this->owner_id;
+    }
+
+    /**
+     * @return array
+     */
+    public function getRelation()
+    {
+        return $this->relation;
+    }
+
+    /**
+     * @param array $relation
+     */
+    public function setRelation($relation)
+    {
+        $this->relation = $relation;
+    }
+
+    /**
+     * @param $product_id
+     */
+    public function increaseQuantity($product_id)
+    {
+        $this->relation[$product_id] += 1;
+    }
+
+    /**
+     * @param $product_id
+     */
+    public function decreaseQuantity($product_id)
+    {
+        if($this->relation[$product_id] == 1)
+            $this->relation[$product_id] = 0;
+        else
+            $this->relation[$product_id] -= 1;
+    }
+
+    /**
+     * @param $product_id
+     */
+    public function addNewProduct($product_id)
+    {
+        $this->relation[$product_id] = 1;
+    }
+
+    /**
+     * @param $product_id
+     */
+    public function removeProduct($product_id)
+    {
+        unset($this->relation[$product_id]);
     }
 }

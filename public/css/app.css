@@ -9,7 +9,27 @@ html {
   font-size: 18px;
 }
 .left{
+  margin-right:3px;
+}
+.cart
+{
+  bottom:0px;
+  position:absolute;
+  text-align:center;
+  right: 70px;
+}
+.product
+{
   float:left;
+  margin:33px;
+  border-style: solid;
+  border-color:#aba8ff;
+  border-radius: 6px;
+  height: 280px;
+}
+.title{
+  text-align: center;
+  height: 10px;
 }
 body {
   margin: 0;
