@@ -27,18 +27,19 @@ class Categories extends Migration
 
         });
 
-        Schema::create('product_category', function(Blueprint $table)
+        Schema::create('categories_products', function(Blueprint $table)
         {
-            $table->integer('product_id')->unsigned()->index();
-            $table->foreign('product_id')
+            $table->integer('products_id')->unsigned()->index();
+            $table->foreign('products_id')
                 ->references('id')
                 ->on('products')
                 ->onDelete('cascade');
-            $table->integer('category_id')->unsigned()->index();
-            $table->foreign('category_id')
+            $table->integer('categories_id')->unsigned()->index();
+            $table->foreign('categories_id')
                 ->references('id')
                 ->on('categories')
                 ->onDelete('cascade');
+            $table->timestamps();
         });
 
 
@@ -52,7 +53,7 @@ class Categories extends Migration
     public function down()
     {
         Schema::drop('categories');
-        Schema::drop('product_category');
+        Schema::drop('categories_products');
 
     }
 }

@@ -44,10 +44,10 @@
                 </li>
 
             </ul>
-            <ul class="nav navbar-nav navbar-right">
+            <ul class="nav navbar-nav navbar-right list-inline">
                 @if (Auth::guest())
                     <li>
-                        <a href="{{ url('/auth/login') }}">Login</a>
+                        <a href="{{ url('/auth/login') }}" class="l">Login</a>
                     </li>
                     <li>
                         <a href="{{ url('/auth/register') }}">Register</a>
@@ -55,6 +55,10 @@
             </ul>
 
         @else
+                <li>
+                    <a href="{{ url('/auth/logout') }}" >Logout</a>
+                </li>
+            <li>
             <div class="mini">
                 <button class="btn btn-default dropdown-toggle " type="button" id="menu1" data-toggle="dropdown">{{Auth::user()->name}}
                     <span class="caret"></span></button>
@@ -66,9 +70,14 @@
                     @if(!Auth::guest() && Auth::user()->can_create_product())
                         <li role="presentation"><a role="menuitem" tabindex="-1" href="/product/create">Add product</a></li>
                     @endif
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="/cart/index">My cart</a></li>
 
+
+            </div>
+            </li>
                 </ul>
-        </div>
+
+
                 @endif
         </div>
     </div>
@@ -97,7 +106,7 @@
 
 
     <div class="row">
-        <div class="col-md-10 col-md-offset-1">
+        <div class="col-md-9 ">
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h2>@yield('title')</h2>
@@ -105,6 +114,18 @@
                 </div>
                 <div class="panel-body">
                     @yield('content')
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-2 left ">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h2>@yield('category-title')</h2>
+                    @yield('category-title-meta')
+                </div>
+                <div class="panel-body">
+                    @yield('category-content')
                 </div>
             </div>
         </div>

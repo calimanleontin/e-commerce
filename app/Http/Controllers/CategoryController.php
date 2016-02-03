@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Categories;
+use App\Products;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -28,10 +29,20 @@ class CategoryController extends Controller
         return redirect('/')->withMessage('New category created');
     }
 
-    public function index()
+    public function show($slug)
     {
+        /**
+         * @var $category Categories
+         */
+        $category = Categories::where('slug',$slug)->first();
         $categories = Categories::all();
-        return view('home')->withCategories($categories)->withTitle('Categories');
-
+        /**
+         * @var $products Products
+         */
+        $products = $category->products()->get();
+        return view('home')->withProducts($products)
+            ->withCategories($categories)
+            ->withTitle('Products from the  category '.$category->title);
     }
+
 }

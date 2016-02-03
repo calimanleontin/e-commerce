@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 
+use App\Cart;
 use App\User;
+use Illuminate\Support\Facades\Session;
 use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
@@ -50,6 +52,9 @@ class UserController extends Controller
         $user->password = bcrypt($password);
         $user->save();
         Auth::login($user);
+        $cart = new Cart();
+        $cart->setOwnerId($user->id);
+        Session::put('cart',$cart);
         return  redirect('/')->withMessage('Registered successfully');
     }
 
@@ -67,8 +72,13 @@ class UserController extends Controller
         $password = $request->input('password');
 
         $user = User::where('email',$email)->first();
+        if($user == NULL)
+            return view('auth.login')->withErrors('Email has not been found');
 //        var_dump(bcrypt($password));
 //        die();
+        $cart = new Cart();
+        $cart->setOwnerId($user->id);
+        Session::put('cart',$cart);
         if (Hash::check($password, $user->password)) {
             Auth::login($user);
             return redirect('/')->withMessage('Logged in successfully');
@@ -83,6 +93,7 @@ class UserController extends Controller
     public function getLogout()
     {
         Auth::logout();
+        Session::forget('cart');
         return redirect('/')->withMessages('You logged out successfully');
     }
 

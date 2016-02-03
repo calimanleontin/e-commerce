@@ -10,13 +10,26 @@
 @section('content')
     @if(!empty($products))
         @foreach($products as $product)
-            {{$product->name}}
+            <div class="col-md-3 product">
+                <div class="panel-title  title">
+                <a href="/product/{{$product->slug}}">{{$product->name}} </a>
+                </div>
+                <div class="cart">
+                    <a href = '/to-cart/{{$product->id}}'>Add to cart </a>
+                </div>
+            </div>
         @endforeach
     @endif
-
+@endsection
+@section('category-title')
+    Categories
+@endsection
+@section('category-content')
     @if(!empty($categories))
+        <ul class="list-group">
         @foreach($categories as $category)
-            {{$category->title}}
+                <a href = '/category/{{$category->slug}}'><li class="list-group-item">{{$category->title}} </li></a>
         @endforeach
+        </ul>
     @endif
 @endsection

@@ -24,9 +24,12 @@ class Products extends Migration
             $table->string('description');
             $table->string('slug')->unique();
             $table->integer('category_id');
-            $table->boolean('active');
-            $table->bigInteger('amount')->unsigned()->default(0);
-            $table->boolean('available');
+            $table->integer('quantity')->unsigned()->default(0);
+            $table->boolean('active')->default(1);
+            $table->bigInteger('views')->default(0);
+            $table->bigInteger('likes')->unsigned()->default(0);
+            $table->bigInteger('dislikes')->unsigned()->default(0);
+            $table->bigInteger('noComments')->unsigned()->default(0);
             $table->timestamps();
         });
 

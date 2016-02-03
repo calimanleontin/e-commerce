@@ -32,17 +32,22 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('auth/login', 'UserController@getLogin');
     Route::post('auth/login', 'UserController@postLogin');
     Route::get('auth/logout', 'UserController@getLogout');
+    Route::get('/category/{slug}','CategoryController@show');
+    Route::Get('/product/{slug}','ProductController@show');
 
 // Registration routes...
     Route::get('auth/register', 'UserController@getRegister');
     Route::post('auth/register', 'UserController@postRegister');
-    Route::get('categories', 'CategoryController@index');
+
+
     Route::group(['middleware' => ['auth']], function()
     {
         Route::get('category/create','CategoryController@create');
         Route::post('category/store','CategoryController@store');
         Route::get('/product/create','ProductController@create');
         Route::post('/product/store','ProductController@store');
+        Route::get('/to-cart/{id}','CartController@add')->where('id', '[0-9]+');
+        Route::get('/cart/index','CartController@index');
 
     });
 });

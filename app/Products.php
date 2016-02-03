@@ -15,6 +15,11 @@ class Products extends Model
         return $this->belongsTo('App\User','author_id');
     }
 
+    public function comments()
+    {
+        return $this->hasMany('App\Comments');
+    }
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */

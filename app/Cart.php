@@ -1,25 +1,112 @@
 <?php
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
 
-class Cart extends Model
+class Cart
 {
-    protected $guarded = [];
+    private $owner_id;
+    private $sum;
+    private $relation = array();
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return mixed
      */
-    public function owner()
+    public function getSum()
     {
-        return $this->belongsTo('App\User');
+        return $this->sum;
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @param mixed $sum
      */
-    public function products()
+    public function setSum($sum)
     {
-        return $this->belongsToMany('App\Products')->withTimestamps();
+        $this->sum = $sum;
+    }
+
+    /**
+     * @param $price
+     */
+    public function increaseSum($price)
+    {
+        $this->sum += $price;
+    }
+
+    /**
+     * @param $owner
+     */
+    public function setOwnerId($owner)
+    {
+        $this->owner_id = $owner;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getOwnerId()
+    {
+        return $this->owner_id;
+    }
+
+    /**
+     * @return array
+     */
+    public function getRelation()
+    {
+        return $this->relation;
+    }
+
+    /**
+     * @param array $relation
+     */
+    public function setRelation($relation)
+    {
+        $this->relation = $relation;
+    }
+
+    /**
+     * @param $product_id
+     */
+    public function increaseQuantity($product_id)
+    {
+        $this->relation[$product_id] += 1;
+    }
+
+    /**
+     * @param $product_id
+     */
+    public function decreaseQuantity($product_id)
+    {
+        if($this->relation[$product_id] == 1)
+            $this->relation[$product_id] = 0;
+        else
+            $this->relation[$product_id] -= 1;
+    }
+
+    /**
+     * @param $product_id
+     */
+    public function addNewProduct($product_id)
+    {
+        if (array_key_exists($product_id,$this->relation))
+            $this->increaseQuantity($product_id);
+        else
+            $this->relation[$product_id] = 1;
+    }
+
+    /**
+     * @param $product_id
+     */
+    public function removeProduct($product_id)
+    {
+        unset($this->relation[$product_id]);
+    }
+
+    /**
+     * @return array
+     */
+    public function getCart()
+    {
+        return $this->relation;
     }
 }
