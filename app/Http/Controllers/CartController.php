@@ -21,12 +21,23 @@ class CartController extends Controller
          * @var $cart Cart
          */
         $cart = Session::get('cart');
-        $sent = array();
+        $products = array();
+        $quantities = array();
         foreach ($cart->getCart() as $key =>$item) {
-            $sent[$item] = Products::where('id', $key)->first();
+            $products[] = Products::where('id',$key)->first();
+            $quantities[] = $item;
         }
         $categories = Categories::all();
-        return view('cart.index')->withProducts($sent)->withCategories($categories);
+//        for($i=0 ;$i<2 ; $i++)
+//        {
+//            var_dump($categories[$i]);
+//
+//        }
+//        die();
+        return view('cart.index')
+            ->withQuantities($quantities)
+            ->withProducts($products)
+            ->withCategories($categories);
     }
 
     /**

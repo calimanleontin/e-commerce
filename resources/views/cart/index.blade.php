@@ -17,18 +17,18 @@
             </tr>
             </thead>
             <tbody>
-        @foreach($products as $quantity => $product)
+        @for($i=0;$i<count($products);$i++)
             <tr>
                 <th scope="row">1</th>
-                <td><a href="/product/{{$product->slug}}"> {{$product->name}} </a></td>
-                <td>{{$quantity}}</td>
-                <td>{{$product->price}}</td>
-                <td><a href="/cart/increase/{{$product->id}}"><button class= " btn btn-primary btn-success" > + </button></a></td>
-                <td><a href="/cart/decrease/{{$product->id}}"><button class ="btn btn-primary btn-warning"> - </button></a></td>
-                <td><a href="/cart/delete/{{$product->id}}"> <button class="btn btn-primary btn-danger" >Erase</button></a> </td>
+                <td><a href="/product/{{$products[$i]->slug}}"> {{$products[$i]->name}} </a></td>
+                <td>{{$quantities[$i]}}</td>
+                <td>{{$products[$i]->price}}</td>
+                <td><a href="/cart/increase/{{$products[$i]->id}}"><button class= " btn btn-primary btn-success" > + </button></a></td>
+                <td><a href="/cart/decrease/{{$products[$i]->id}}"><button class ="btn btn-primary btn-warning"> - </button></a></td>
+                <td><a href="/cart/delete/{{$products[$i]->id}}"> <button class="btn btn-primary btn-danger" >Erase</button></a> </td>
 
             </tr>
-        @endforeach
+        @endfor
             </tbody>
         </table>
     @endif
