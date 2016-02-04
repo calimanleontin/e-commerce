@@ -97,9 +97,6 @@ class Cart
      */
     public function decreaseQuantity($product_id)
     {
-        if($this->relation[$product_id] == 1)
-            $this->relation[$product_id] = 0;
-        else
             $this->relation[$product_id] -= 1;
     }
 

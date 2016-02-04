@@ -100,4 +100,18 @@ class CartController extends Controller
         return redirect('/cart/index')->withMessage('Quantity increased successfully');
     }
 
+    public function delete($id)
+    {
+        /**
+         * @var $cart Cart
+         */
+        $cart = Session::get('cart');
+        if($cart->checkProduct($id))
+            $cart->removeProduct($id);
+        else
+            return redirect('/cart/index')->withErrors('Product not found');
+
+        return redirect('/cart/index')->withMessage('Product erased from cart successfully');
+    }
+
 }
