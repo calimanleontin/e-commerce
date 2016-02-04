@@ -15,13 +15,13 @@ class Comments extends Migration
         Schema::create('comments', function(Blueprint $table)
         {
             $table->increments('id');
-            $table->integer('on_post')->unsigned()->default(0);
-            $table->foreign('on_post')
+            $table->integer('on_product')->unsigned()->default(0);
+            $table->foreign('on_product')
                 ->references('id')
                 ->on('products')
                 ->onDelete('cascade');
             $table->string('author_name');
-            $table->int('author_id')->unsigned()->default(0);
+            $table->integer('author_id')->unsigned()->default(0);
             $table->foreign('author_id')
                 ->references('id')
                 ->on('users')

@@ -58,6 +58,10 @@ class ProductController extends Controller
     public function show($slug)
     {
         $product = Products::where('slug',$slug)->first();
+        if($product == NULL)
+            return redirect('/')->withErrors('Requested url does not exist');
+//        var_dump($product);
+//        die();
 //        $product->views += 1;
 //        $product->save();
         $categories = Categories::all();

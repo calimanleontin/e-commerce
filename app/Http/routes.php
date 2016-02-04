@@ -32,8 +32,6 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('auth/login', 'UserController@getLogin');
     Route::post('auth/login', 'UserController@postLogin');
     Route::get('auth/logout', 'UserController@getLogout');
-    Route::get('/category/{slug}','CategoryController@show');
-    Route::Get('/product/{slug}','ProductController@show');
 
 // Registration routes...
     Route::get('auth/register', 'UserController@getRegister');
@@ -51,7 +49,12 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('/cart/increase/{id}','CartController@increase');
         Route::get('/cart/decrease/{id}','CartController@decrease');
         Route::get('/cart/delete/{id}','CartController@delete');
+        Route::post('/comment/store','CommentController@store');
 
 
     });
+    Route::Get('/product/{slug}','ProductController@show');
+    Route::get('/category/{slug}','CategoryController@show');
+
+
 });

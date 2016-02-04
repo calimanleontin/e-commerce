@@ -9,8 +9,12 @@
     Add a comment:
     <form method="post" action="/comment/store" class="form-group">
         <input type = 'hidden' name = '_token' value = "{{csrf_token()}}" >
-        <input type="hidden" name = "slug" value="{{$product->slug}}">
+        <input type="hidden" name = "product_id" value="{{$product->id}}">
         <textarea name ='content' class="form-control" placeholder="Comment"></textarea>
+        <div class="form-group">
+            <br>
+        <input type="submit" value="Submit" class ='form-control-static' >
+        </div>
     </form>
 
 @endsection
