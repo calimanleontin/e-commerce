@@ -33,11 +33,6 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         return $this->hasMany('App\Products');
     }
 
-    public function numele()
-    {
-        return $this->name;
-    }
-
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */

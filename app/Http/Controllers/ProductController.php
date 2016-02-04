@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Categories;
+use App\Comments;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Redirect;
@@ -60,12 +61,14 @@ class ProductController extends Controller
         $product = Products::where('slug',$slug)->first();
         if($product == NULL)
             return redirect('/')->withErrors('Requested url does not exist');
-//        var_dump($product);
+      $comments = Comments::where('on_product',$product->id)->orderBy('created_at','asc')->paginate(5);
+//        var_dump($comments->first()->content);
 //        die();
-//        $product->views += 1;
-//        $product->save();
         $categories = Categories::all();
 //        $comments = $product->comments();
-        return view('product.show')->withProduct($product)->withCategories($categories);
+        return view('product.show')
+            ->withProduct($product)
+            ->withCategories($categories)
+            ->withComments($comments);
     }
 }
