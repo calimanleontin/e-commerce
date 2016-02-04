@@ -80,6 +80,24 @@ class CartController extends Controller
         return redirect('/cart/index')->withMessage('Quantity increased successfully');
     }
 
-  
+    public function decrease($id)
+    {
+        /**
+         * @var $cart Cart
+         */
+        $cart = Session::get('cart');
+        if($cart->checkProduct($id)) {
+            if($cart->getQuantity($id) >1)
+                $cart->decreaseQuantity($id);
+            else
+            {
+                return redirect('/cart/index')->withErrors('Can\'t decrease a quantity to 0');
+            }
+        }
+        else
+            return redirect('/cart/index')->withErrors('Product not found');
+
+        return redirect('/cart/index')->withMessage('Quantity increased successfully');
+    }
 
 }
