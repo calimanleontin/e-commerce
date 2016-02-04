@@ -48,6 +48,10 @@ Route::group(['middleware' => ['web']], function () {
         Route::post('/product/store','ProductController@store');
         Route::get('/to-cart/{id}','CartController@add')->where('id', '[0-9]+');
         Route::get('/cart/index','CartController@index');
+        Route::get('/cart/increase/{id}','CartController@increase');
+        Route::get('/cart/decrease/{id}','CartController@decrease');
+        Route::get('/cart/delete/{id}','CartController@delete');
+
 
     });
 });

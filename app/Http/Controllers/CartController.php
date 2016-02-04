@@ -57,8 +57,6 @@ class CartController extends Controller
         if($product->quantity > 0)
         {
             $cart->addNewProduct($product->id);
-            $product->quantity -=1;
-            $product->save();
             Session::put('cart',$cart);
         }
         else
@@ -67,4 +65,21 @@ class CartController extends Controller
 
 
     }
+
+    public function increase($id)
+    {
+        /**
+         * @var $cart Cart
+         */
+        $cart = Session::get('cart');
+        if($cart->checkProduct($id))
+            $cart->increaseQuantity($id);
+        else
+            return redirect('/cart/index')->withErrors('Product not found');
+
+        return redirect('/cart/index')->withMessage('Quantity increased successfully');
+    }
+
+  
+
 }
