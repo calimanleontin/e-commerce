@@ -63,7 +63,6 @@
                 <button class="btn btn-default dropdown-toggle " type="button" id="menu1" data-toggle="dropdown">{{Auth::user()->name}}
                     <span class="caret"></span></button>
                 <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
-                    <li role="presentation"><a role="menuitem" tabindex="-1" href="/categories">Categories</a></li>
                     @if(!Auth::guest() && Auth::user()->is_admin())
                         <li role="presentation"><a role="menuitem" tabindex="-1" href="/category/create">Add category</a></li>
                         @endif
@@ -129,6 +128,7 @@
                 </div>
             </div>
         </div>
+    </div>
     </div>
 
 

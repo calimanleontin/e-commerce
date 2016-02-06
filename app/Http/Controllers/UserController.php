@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 
 use App\Cart;
+use App\Categories;
 use App\User;
 use Illuminate\Support\Facades\Session;
 use Validator;
@@ -27,7 +28,9 @@ class UserController extends Controller
      */
     public function getRegister()
     {
-        return view('auth.register');
+        $categories = Categories::all();
+        return view('auth.register')
+            ->withCategories($categories);
     }
 
     /**
@@ -63,7 +66,9 @@ class UserController extends Controller
      */
     public function getLogin()
     {
-        return view('auth.login');
+        $categories = Categories::all();
+        return view('auth.login')
+            ->withCategories($categories);
     }
 
     public function postLogin(Request $request)

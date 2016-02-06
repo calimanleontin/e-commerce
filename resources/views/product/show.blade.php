@@ -9,9 +9,44 @@
     Add a comment:
     <form method="post" action="/comment/store" class="form-group">
         <input type = 'hidden' name = '_token' value = "{{csrf_token()}}" >
-        <input type="hidden" name = "slug" value="{{$product->slug}}">
+        <input type="hidden" name = "product_id" value="{{$product->id}}">
         <textarea name ='content' class="form-control" placeholder="Comment"></textarea>
+        <div class="form-group">
+            <br>
+        <input type="submit" value="Submit" class ='form-control-static' >
+        </div>
     </form>
+
+    <div>
+        @if(!empty($comments))
+            <ul style="list-style: none; padding: 0">
+                @foreach($comments as $comment)
+                    <li class="panel-body">
+                        <div class="list-group">
+                            <div class="list-group-item">
+                                <p> <strong>{{ $comment->author->name }} </strong> on
+                                {{ $comment->created_at->format('M d,Y \a\t h:i a') }}</p>
+                            </div>
+                            <div class="list-group-item">
+                                <p>{!! $comment->content !!} </p>
+
+                            </div>
+                            <div class = 'list-group-item'>
+                                @if(!Auth::guest() && ($comment->from_user == Auth::user()->id || Auth::user()->is_admin() || Auth::user()->is_moderator() ))
+                                    <a href="{{  url('comment/delete/'.$comment->id) }}" class="btn btn-danger">Delete comment</a>
+                                @endif
+                                    @if(!Auth::guest() && ($comment->from_user == Auth::user()->id || Auth::user()->is_admin() || Auth::user()->is_moderator() ))
+                                        <a href="{{  url('comment/edit/'.$comment->id) }}" class="btn btn-warning">Edit comment</a>
+                                    @endif
+                            </div>
+                        </div>
+                    </li>
+                @endforeach
+
+                    {!! $comments->render() !!}
+            </ul>
+        @endif
+    </div>
 
 @endsection
 @section('category-title')
@@ -26,25 +61,5 @@
         </ul>
     @endif
 
-    <div>
-        @if(!empty($comments))
-            <ul style="list-style: none; padding: 0">
-                @foreach($comments as $comment)
-                    <li class="panel-body">
-                        <div class="list-group">
-                            <div class="list-group-item">
-                                <h3>{{ $comment->author->name }}</h3>
-                                <p>{{ $comment->created_at->format('M d,Y \a\t h:i a') }}</p>
-                            </div>
-                            <div class="list-group-item">
-                                <p>{{ $comment->body }}</p>
-                                @if(!Auth::guest() && ($comment->from_user == Auth::user()->id || Auth::user()->is_admin() || Auth::user()->is_moderator() ))
-                                    <a href="{{  url('comment/delete/'.$comment->id) }}" class="btn btn-danger">Delete comment</a>
-                                @endif
-                            </div>
-                        </div>
-                    </li>
-                @endforeach
-            </ul>
-    @endif
+
 @endsection

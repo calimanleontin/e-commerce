@@ -9,6 +9,26 @@ class Cart
     private $relation = array();
 
     /**
+     * @param $product_id
+     * @return bool
+     */
+    public function checkProduct($product_id)
+    {
+        if (array_key_exists($product_id,$this->relation))
+            return true;
+        return false;
+    }
+
+    /**
+     * @param $product_id
+     * @return mixed
+     */
+    public function getQuantity($product_id)
+    {
+        return $this->relation[$product_id];
+    }
+
+    /**
      * @return mixed
      */
     public function getSum()
@@ -77,9 +97,6 @@ class Cart
      */
     public function decreaseQuantity($product_id)
     {
-        if($this->relation[$product_id] == 1)
-            $this->relation[$product_id] = 0;
-        else
             $this->relation[$product_id] -= 1;
     }
 

@@ -35,6 +35,8 @@ class CategoryController extends Controller
          * @var $category Categories
          */
         $category = Categories::where('slug',$slug)->first();
+        if($category == NULL)
+            return redirect('/')->withErrors('Requested url does not exist');
         $categories = Categories::all();
         /**
          * @var $products Products
