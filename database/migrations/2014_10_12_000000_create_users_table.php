@@ -20,6 +20,7 @@ class CreateUsersTable extends Migration
             $table->enum('role',['admin','user','moderator',])->default('admin');
             $table->bigInteger('views')->default(0);
             $table->rememberToken();
+            $table->string('dictionary');
             $table->timestamps();
         });
     }

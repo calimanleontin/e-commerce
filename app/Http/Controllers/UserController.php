@@ -97,6 +97,15 @@ class UserController extends Controller
      */
     public function getLogout()
     {
+        /**
+         * @var $cart Cart
+         */
+        $cart = Session::get('cart');
+        $dictionary = null;
+        foreach($cart->getCart() as $key=>$value) {
+            $dictionary = $dictionary.$key.' '.$value.' ';
+
+        }
         Auth::logout();
         Session::forget('cart');
         return redirect('/')->withMessages('You logged out successfully');
