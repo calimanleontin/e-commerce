@@ -79,9 +79,17 @@ class UserController extends Controller
         $user = User::where('email',$email)->first();
         if($user == NULL)
             return view('auth.login')->withErrors('Email has not been found');
-//        var_dump(bcrypt($password));
-//        die();
         $cart = new Cart();
+        $dictionary = $user->dictionary;
+        if(count($dictionary != 0)) {
+            for ($i = 0; $i < count($dictionary); $i++) {
+                $key = $dictionary[$i];
+                $i += 2;
+                $value = $dictionary[$i];
+                $cart->addNewProduct($key);
+                $cart->setQuantity($key,$value);
+            }
+        }
         $cart->setOwnerId($user->id);
         Session::put('cart',$cart);
         if (Hash::check($password, $user->password)) {
@@ -95,7 +103,7 @@ class UserController extends Controller
     /**
      * @return mixed
      */
-    public function getLogout()
+    public function getLogout(Request $request)
     {
         /**
          * @var $cart Cart
@@ -104,8 +112,11 @@ class UserController extends Controller
         $dictionary = null;
         foreach($cart->getCart() as $key=>$value) {
             $dictionary = $dictionary.$key.' '.$value.' ';
-
         }
+        $user = $request->user();
+        $user->dictionary = $dictionary;
+        $user->save();
+
         Auth::logout();
         Session::forget('cart');
         return redirect('/')->withMessages('You logged out successfully');
