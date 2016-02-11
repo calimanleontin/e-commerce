@@ -13,9 +13,12 @@ class CategoryController extends Controller
 {
     public function create(Request $request)
     {
+        $categories = Categories::all();
         if($request->user()->can_create_category())
-            return view('category.create');
-        return redirect('/')->withErrors('You have not sufficient permission to create a new category');
+            return view('category.create')
+                ->withCategories($categories);
+        return redirect('/')
+            ->withErrors('You have not sufficient permission to create a new category');
     }
 
     public function store(Request $request)
