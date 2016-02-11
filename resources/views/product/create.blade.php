@@ -2,6 +2,9 @@
 @section('title')
     Add a new product
 @endsection
+
+<script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
+<script>tinymce.init({ selector:'textarea' });</script>
 @section('content')
 
     <form method="post" action="/product/store" >
@@ -18,10 +21,15 @@
             Quantity:
             <input type="number" name="quantity" placeholder="Quantity" class="form-control">
         </div>
-
+        <div class="form-group">
+            <input type="file" name = 'image' value="Upload">
+        </div>
         <div class="form-group">
             Description:
             <textarea name="description" class="form-control" placeholder="Description"></textarea>
+        </div>
+        <div class="form-group">
+            <input type="image" name = 'image'>
         </div>
         Check the categories this product to belong to:<br/>
         @foreach($categories as $category)

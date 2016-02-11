@@ -18,6 +18,9 @@ class ProductController extends Controller
     {
         $products = Products::where('active',1)->paginate(9);
         $categories = Categories::all();
+//        $cart = Session::get('cart');
+//        var_dump($cart->getCart());
+//        die();
         return view('home')->withProducts($products)->withCategories($categories);
     }
     public function create(Request $request)

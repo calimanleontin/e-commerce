@@ -81,8 +81,11 @@ class UserController extends Controller
             return view('auth.login')->withErrors('Email has not been found');
         $cart = new Cart();
         $dictionary = $user->dictionary;
-        if(count($dictionary != 0)) {
-            for ($i = 0; $i < count($dictionary); $i++) {
+//        var_dump($dictionary);
+//        die();
+        if(strlen($dictionary != 0)) {
+            for ($i = 0; $i <strlen($dictionary)-1; $i+=2) {
+//                var_dump($i);
                 $key = $dictionary[$i];
                 $i += 2;
                 $value = $dictionary[$i];
@@ -90,6 +93,8 @@ class UserController extends Controller
                 $cart->setQuantity($key,$value);
             }
         }
+//        var_dump($cart->getCart());
+//        die();
         $cart->setOwnerId($user->id);
         Session::put('cart',$cart);
         if (Hash::check($password, $user->password)) {
