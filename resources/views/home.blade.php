@@ -21,8 +21,7 @@
                     @endif
             </div>
         @endforeach
-        {!! $products->render() !!}
-
+        {{--{!! $products->render() !!}--}}
     @endif
 @endsection
 @section('category-title')

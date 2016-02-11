@@ -41,7 +41,7 @@ class CategoryController extends Controller
         /**
          * @var $products Products
          */
-        $products = $category->products()->get();
+        $products = $category->products()->paginate(9);
         return view('home')->withProducts($products)
             ->withCategories($categories)
             ->withTitle('Products from the  category '.$category->title);

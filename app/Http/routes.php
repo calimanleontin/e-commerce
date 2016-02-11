@@ -49,6 +49,7 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('/cart/decrease/{id}','CartController@decrease');
         Route::get('/cart/delete/{id}','CartController@delete');
         Route::post('/comment/store','CommentController@store');
+        Route::post('/finish-order','CartController@finish');
 
 
     });
