@@ -14,11 +14,15 @@
                 <div class="panel-title  title">
                 <a href="/product/{{$product->slug}}">{{$product->name}} </a>
                 </div>
+                @if(!Auth::guest())
                 <div class="cart">
                     <a href = '/to-cart/{{$product->id}}'>Add to cart </a>
                 </div>
+                    @endif
             </div>
         @endforeach
+        {!! $products->render() !!}
+
     @endif
 @endsection
 @section('category-title')

@@ -6,6 +6,7 @@
 <script>tinymce.init({ selector:'textarea' });</script>
 
 @section('content')
+    @if(!Auth::guest())
     Add a comment:
     <form method="post" action="/comment/store" class="form-group">
         <input type = 'hidden' name = '_token' value = "{{csrf_token()}}" >
@@ -15,7 +16,8 @@
             <br>
         <input type="submit" value="Submit" class ='form-control-static' >
         </div>
-    </form>
+
+        @endif
 
     <div>
         @if(!empty($comments))
