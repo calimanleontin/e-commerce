@@ -30,6 +30,7 @@ class Products extends Migration
             $table->bigInteger('likes')->unsigned()->default(0);
             $table->bigInteger('dislikes')->unsigned()->default(0);
             $table->bigInteger('noComments')->unsigned()->default(0);
+            $table->string('image');
             $table->timestamps();
         });
 

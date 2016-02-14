@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Categories;
 use App\Comments;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
 use App\Http\Requests;
 use App\Products;
@@ -18,9 +18,6 @@ class ProductController extends Controller
     {
         $products = Products::where('active',1)->paginate(9);
         $categories = Categories::all();
-//        $cart = Session::get('cart');
-//        var_dump($cart->getCart());
-//        die();
         return view('home')->withProducts($products)->withCategories($categories);
     }
     public function create(Request $request)
@@ -49,7 +46,19 @@ class ProductController extends Controller
         $product->author_id = $user_id;
         $product->slug = str_slug($request->input('name'));
         $product->active = 1;
+
+
+        $file = array('image' => Input::file('image'));
+
+        $destinationPath = 'images/catalog'; // upload path
+        $extension = Input::file('image')->getClientOriginalExtension(); // getting image extension
+        $fileName = rand(11111,99999).'.'.$extension; // renameing image
+        Input::file('image')->move($destinationPath, $fileName); // uploading file to given path
+        // sending back with message
+
         $product->save();
+
+
         if($categories)
             foreach($categories as $category)
             {

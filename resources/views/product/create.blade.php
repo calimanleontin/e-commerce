@@ -39,7 +39,7 @@
     {{--</form>--}}
 
 
-    {!! Form::open(array('url' => '/product/store')) !!}
+    {!! Form::open(array('url' => '/product/store', 'method'=>'POST', 'files'=>true)) !!}
 
         <div class="form-group">
             {!! Form::label('name','Name') !!}
@@ -53,20 +53,24 @@
 
         <div class="form-group">
             {!! Form::label('quantity','Quantity') !!}
-            {!! Form::text('quantity','',['class' => 'form-control']) !!}
+            {!! Form::number('quantity','',['class' => 'form-control']) !!}
         </div>
 
         <div class="form-group">
+            {!! Form::label('Product Image') !!}
+            {!! Form::file('image') !!}
+        </div>
+
+    <div class="form-group">
             {!! Form::label('description','Description') !!}
             {!! Form::textarea('description','',['class' => 'form-control']) !!}
         </div>
 
+    @foreach($categories as $category)
         <div class="form-group">
-        {!! Form::select('animal', array(
-            'Categories' => array('leopard' => 'Leopard', 'animal'=>'animalll'),
-            ),['class' => 'form-control'])
-        !!}
+            <label>{!!  Form::checkbox("category[]",$category->title, false) !!} {{$category->title}} </label>
         </div>
+    @endforeach
 
         <div class="form-group">
             {!!  Form::submit('Create',['class'=> ''])!!}

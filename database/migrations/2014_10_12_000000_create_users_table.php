@@ -21,6 +21,7 @@ class CreateUsersTable extends Migration
             $table->bigInteger('views')->default(0);
             $table->rememberToken();
             $table->string('dictionary');
+            $table->string('image');
             $table->timestamps();
         });
     }
