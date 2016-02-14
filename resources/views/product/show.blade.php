@@ -10,6 +10,24 @@
     <div >
         <img src="../images/catalog/{{$product->image}}" alt="Smiley face" height=70% width=70% class = 'img-responsive'>
     </div>
+    &nbsp
+    <p>
+        <span><strong>Description:</strong>
+        {!! $product->description !!}
+        </span>
+    </p>
+    <p>
+        <span>
+            <strong>Pice:</strong>
+            {!! $product->price !!}
+        </span>
+    </p>
+    <p>
+        <span>
+            <strong>Quantity</strong>
+            {!! $product->quantity !!}
+        </span>
+    </p>
     @if(!Auth::guest())
     Add a comment:
     <form method="post" action="/comment/store" class="form-group">
