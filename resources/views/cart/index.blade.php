@@ -14,6 +14,7 @@
                 <th>Increase</th>
                 <th>Decrease</th>
                 <th>Delete</th>
+                <th>Total</th>
             </tr>
             </thead>
             <tbody>
@@ -26,11 +27,13 @@
                 <td><a href="/cart/increase/{{$products[$i]->id}}"><button class= " btn btn-primary btn-success" > + </button></a></td>
                 <td><a href="/cart/decrease/{{$products[$i]->id}}"><button class ="btn btn-primary btn-warning"> - </button></a></td>
                 <td><a href="/cart/delete/{{$products[$i]->id}}"> <button class="btn btn-primary btn-danger" >Erase</button></a> </td>
-
+                {{--*/ $var = $quantities[$i]*$products[$i]->price  /*--}}
+                <td>{{$var}}</td>
             </tr>
         @endfor
             </tbody>
         </table>
+        <button class="btn btn-default" a href="/finish-cart" >Purchase</button>
     @endif
 @endsection
 @section('category-title')

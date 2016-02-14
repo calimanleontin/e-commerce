@@ -44,15 +44,20 @@ Route::group(['middleware' => ['web']], function () {
         Route::post('category/store','CategoryController@store');
         Route::get('/product/create','ProductController@create');
         Route::post('/product/store','ProductController@store');
-        Route::get('/to-cart/{id}','CartController@add')->where('id', '[0-9]+');
         Route::get('/cart/index','CartController@index');
         Route::get('/cart/increase/{id}','CartController@increase');
         Route::get('/cart/decrease/{id}','CartController@decrease');
         Route::get('/cart/delete/{id}','CartController@delete');
         Route::post('/comment/store','CommentController@store');
+        Route::post('/finish-order','CartController@finish');
+        Route::get('comment/delete/{id}','CommentController@delete');
+        Route::get('comment/edit/{id}','CommentController@edit');
+        Route::post('comment/update','CommentController@update');
 
 
     });
+    Route::get('/to-cart/{id}','CartController@add')->where('id', '[0-9]+');
+
     Route::Get('/product/{slug}','ProductController@show');
     Route::get('/category/{slug}','CategoryController@show');
 

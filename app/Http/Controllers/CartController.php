@@ -47,9 +47,13 @@ class CartController extends Controller
      */
     public function add(Request $request,$id)
     {
+       if($request->user() == null)
+           return redirect('/auth/login')->withErrors('You first have to login');
         $product = Products::where('id',$id)->where('active',1)->first();
         if($product == NULL)
             return redirect('/')->withErrors('The product doesn\'t exist ' );
+
+
         /**
          * @var $cart Cart
          */
@@ -62,8 +66,6 @@ class CartController extends Controller
         else
             return redirect('/cart/index')->withErrors('The stock is insufficient');
         return redirect('/cart/index')->withMessage('Product successfully added to cart');
-
-
     }
 
     public function increase($id)

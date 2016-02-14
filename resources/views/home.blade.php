@@ -13,12 +13,31 @@
             <div class="col-md-3 product">
                 <div class="panel-title  title">
                 <a href="/product/{{$product->slug}}">{{$product->name}} </a>
+                    <a href ='/product/{{$product->slug}}'>
+                    <img src="../images/catalog/{{$product->image}}" alt="Product Image" class = 'img-responsive'>
+                    </a>
+                    <p>
+                            <strong>
+                            Price:
+                        </strong>
+                        {{$product->price}}
+                    </p>
+                    <p>
+                        <strong>
+                            Qunatity:
+                        </strong>
+                        {{$product->quantity}}
+                    </p>
+
                 </div>
+                @if(!Auth::guest())
                 <div class="cart">
                     <a href = '/to-cart/{{$product->id}}'>Add to cart </a>
                 </div>
+                    @endif
             </div>
         @endforeach
+        {!! $products->render() !!}
     @endif
 @endsection
 @section('category-title')

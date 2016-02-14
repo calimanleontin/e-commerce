@@ -19,6 +19,11 @@ class Cart
         return false;
     }
 
+    public function setQuantity($product_id,$quantity)
+    {
+        $this->relation[$product_id] = $quantity;
+    }
+
     /**
      * @param $product_id
      * @return mixed

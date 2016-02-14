@@ -6,6 +6,29 @@
 <script>tinymce.init({ selector:'textarea' });</script>
 
 @section('content')
+
+    <div >
+        <img src="../images/catalog/{{$product->image}}" alt="Smiley face" height=70% width=70% class = 'img-responsive'>
+    </div>
+    &nbsp
+    <p>
+        <span><strong>Description:</strong>
+        {!! $product->description !!}
+        </span>
+    </p>
+    <p>
+        <span>
+            <strong>Price:</strong>
+            {!! $product->price !!}
+        </span>
+    </p>
+    <p>
+        <span>
+            <strong>Quantity</strong>
+            {!! $product->quantity !!}
+        </span>
+    </p>
+    @if(!Auth::guest())
     Add a comment:
     <form method="post" action="/comment/store" class="form-group">
         <input type = 'hidden' name = '_token' value = "{{csrf_token()}}" >
@@ -15,7 +38,8 @@
             <br>
         <input type="submit" value="Submit" class ='form-control-static' >
         </div>
-    </form>
+
+        @endif
 
     <div>
         @if(!empty($comments))
@@ -25,7 +49,10 @@
                         <div class="list-group">
                             <div class="list-group-item">
                                 <p> <strong>{{ $comment->author->name }} </strong> on
-                                {{ $comment->created_at->format('M d,Y \a\t h:i a') }}</p>
+                                {{ $comment->created_at->format('M d,Y \a\t h:i a') }} <br/>
+                                updated at
+                                {{$comment->updated_at->format('M d,Y \a\t h:i a') }}
+                                </p>
                             </div>
                             <div class="list-group-item">
                                 <p>{!! $comment->content !!} </p>
