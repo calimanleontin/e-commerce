@@ -40,6 +40,7 @@
 
 
     {!! Form::open(array('url' => '/product/store', 'method'=>'POST', 'files'=>true)) !!}
+    {!! Form::token() !!}
 
         <div class="form-group">
             {!! Form::label('name','Name') !!}

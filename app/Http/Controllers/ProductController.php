@@ -1,12 +1,11 @@
 <?php
-
 namespace App\Http\Controllers;
-
 use App\Categories;
 use App\Comments;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
+
 use App\Http\Requests;
 use App\Products;
 use App\Http\Controllers\Controller;
@@ -27,7 +26,6 @@ class ProductController extends Controller
             return view('product.create')->withCategories($categories);
         return redirect('/')->withErrors('You have not sufficient permissions to add a new product');
     }
-
     public function store(Request $request)
     {
         $categories = $request->input('category');
@@ -46,19 +44,12 @@ class ProductController extends Controller
         $product->author_id = $user_id;
         $product->slug = str_slug($request->input('name'));
         $product->active = 1;
-
-
-        $file = array('image' => Input::file('image'));
-
+        $file = Input::file('image');
+        $name = $file->getClientOriginalName();
         $destinationPath = 'images/catalog'; // upload path
-        $extension = Input::file('image')->getClientOriginalExtension(); // getting image extension
-        $fileName = rand(11111,99999).'.'.$extension; // renameing image
-        Input::file('image')->move($destinationPath, $fileName); // uploading file to given path
-        // sending back with message
-
+        $fileName = rand(11111,99999).'.'.$name;
+        Input::file('image')->move($destinationPath, $fileName);
         $product->save();
-
-
         if($categories)
             foreach($categories as $category)
             {
@@ -67,13 +58,12 @@ class ProductController extends Controller
             }
         return redirect('/')->withMessage('New product created');
     }
-
     public function show($slug)
     {
         $product = Products::where('slug',$slug)->first();
         if($product == NULL)
             return redirect('/')->withErrors('Requested url does not exist');
-      $comments = Comments::where('on_product',$product->id)->orderBy('created_at','asc')->paginate(5);
+        $comments = Comments::where('on_product',$product->id)->orderBy('created_at','asc')->paginate(5);
 //        var_dump($comments->first()->content);
 //        die();
         $categories = Categories::all();
