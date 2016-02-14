@@ -6,6 +6,10 @@
 <script>tinymce.init({ selector:'textarea' });</script>
 
 @section('content')
+
+    <div >
+        <img src="../images/catalog/{{$product->image}}" alt="Smiley face" height=70% width=70% class = 'img-responsive'>
+    </div>
     @if(!Auth::guest())
     Add a comment:
     <form method="post" action="/comment/store" class="form-group">
