@@ -18,7 +18,7 @@
     </p>
     <p>
         <span>
-            <strong>Pice:</strong>
+            <strong>Price:</strong>
             {!! $product->price !!}
         </span>
     </p>
