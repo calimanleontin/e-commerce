@@ -49,7 +49,10 @@
                         <div class="list-group">
                             <div class="list-group-item">
                                 <p> <strong>{{ $comment->author->name }} </strong> on
-                                {{ $comment->created_at->format('M d,Y \a\t h:i a') }}</p>
+                                {{ $comment->created_at->format('M d,Y \a\t h:i a') }} <br/>
+                                updated at
+                                {{$comment->updated_at->format('M d,Y \a\t h:i a') }}
+                                </p>
                             </div>
                             <div class="list-group-item">
                                 <p>{!! $comment->content !!} </p>

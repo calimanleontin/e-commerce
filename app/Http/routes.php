@@ -50,6 +50,9 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('/cart/delete/{id}','CartController@delete');
         Route::post('/comment/store','CommentController@store');
         Route::post('/finish-order','CartController@finish');
+        Route::get('comment/delete/{id}','CommentController@delete');
+        Route::get('comment/edit/{id}','CommentController@edit');
+        Route::post('comment/update','CommentController@update');
 
 
     });
