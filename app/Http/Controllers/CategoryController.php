@@ -23,13 +23,19 @@ class CategoryController extends Controller
 
     public function store(Request $request)
     {
-        $category = new Categories();
-        $category->title = $request->input('title');
-        $category->description = $request->input('description');
-        $category->slug = str_slug($category->title);
-        $category->author_id = $request->user()->id;
-        $category->save();
-        return redirect('/')->withMessage('New category created');
+        $duplicate = Categories::where('title',$request->input('title'))->first();
+        if($duplicate == NULL)
+        {
+            $category = new Categories();
+            $category->title = $request->input('title');
+            $category->description = $request->input('description');
+            $category->slug = str_slug($category->title);
+            $category->author_id = $request->user()->id;
+            $category->save();
+            return redirect('/')->withMessage('New category created');
+        }
+        else
+            return redirect('/category/create')->withErrors('Name already used');
     }
 
     public function show($slug)
