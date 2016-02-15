@@ -54,6 +54,8 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('comment/edit/{id}','CommentController@edit');
         Route::post('comment/update','CommentController@update');
         Route::get('finish-cart','CartController@finish');
+        Route::get('/order-history','CartController@history');
+        Route::get('/user-profile','UserController@profile');
 
 
     });

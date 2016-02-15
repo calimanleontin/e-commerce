@@ -151,6 +151,7 @@ class CartController extends Controller
         {
             $order_id = $last_order->order_id + 1;
         }
+        $sum = 0;
         foreach($cart->getCart() as $product_id => $quantity)
         {
             $product = Products::where('id',$product_id)->first();
@@ -166,16 +167,32 @@ class CartController extends Controller
                 $product->save();
 
             }
+            $sum += $product->price * $quantity;
             $order = new Orders();
             $order->order_id = $order_id;
             $order->product_id = $product_id;
             $order->quantity = $quantity;
             $order->author_id = $request->user()->id;
+            $order->sum = $sum;
             $order->save();
-//            Session::forget('cart');
+            Session::forget('cart');
+            Session::put('cart', new Cart());
         }
 
         return redirect('/')->withMessage('Order processed successfully');
+    }
+
+    public function history(Request $request)
+    {
+        $user = $request->user();
+        $orders = Orders::where('author_id',$user->id)->orderBy('created_at','asc')->paginate(10);
+        for($i=1;$i<=count($orders);$i++)
+        {
+            if($orders[$i]->order_id == $orders[$i-1]->order_id)
+                unset($orders[$i-1]);
+        }
+        return view('cart.history')->withOrders($orders);
+
     }
 
 }

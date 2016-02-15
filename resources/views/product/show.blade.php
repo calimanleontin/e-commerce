@@ -28,6 +28,11 @@
             {!! $product->quantity !!}
         </span>
     </p>
+    <p>
+        @if(!Auth::guest())
+            <a href="/to-cart/{{$product->id}}"><button class="btn btn-primary">Add to cart</button></a>
+        @endif
+    </p>
     @if(!Auth::guest())
     Add a comment:
     <form method="post" action="/comment/store" class="form-group">

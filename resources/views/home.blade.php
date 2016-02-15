@@ -24,7 +24,7 @@
                     </p>
                     <p>
                         <strong>
-                            Qunatity:
+                            Quantity:
                         </strong>
                         {{$product->quantity}}
                     </p>

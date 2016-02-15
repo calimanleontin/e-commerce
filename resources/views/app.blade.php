@@ -70,8 +70,9 @@
                         <li role="presentation"><a role="menuitem" tabindex="-1" href="/product/create">Add product</a></li>
                     @endif
                     <li role="presentation"><a role="menuitem" tabindex="-1" href="/cart/index">My cart</a></li>
-
-
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="/order-history">Order History</a> </li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="/user-profile">My Profile</a> </li>
+                </ul>
             </div>
             </li>
                 </ul>

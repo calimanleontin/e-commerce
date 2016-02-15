@@ -20,7 +20,7 @@
             <tbody>
         @for($i=0;$i<count($products);$i++)
             <tr>
-                <th scope="row">1</th>
+                <th scope="row">{{$i+1}}</th>
                 <td><a href="/product/{{$products[$i]->slug}}"> {{$products[$i]->name}} </a></td>
                 <td>{{$quantities[$i]}}</td>
                 <td>{{$products[$i]->price}}</td>
