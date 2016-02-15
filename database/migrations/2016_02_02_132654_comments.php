@@ -21,8 +21,8 @@ class Comments extends Migration
                 ->on('products')
                 ->onDelete('cascade');
             $table->string('author_name');
-            $table->integer('author_id')->unsigned()->default(0);
-            $table->foreign('author_id')
+            $table->integer('user_id')->unsigned()->default(0);
+            $table->foreign('user_id')
                 ->references('id')
                 ->on('users')
                 ->onDelete('cascade');

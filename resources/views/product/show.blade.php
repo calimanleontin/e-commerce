@@ -52,7 +52,7 @@
                     <li class="panel-body">
                         <div class="list-group">
                             <div class="list-group-item">
-                                <p> <strong>{{ $comment->author->name }} </strong> on
+                                <p> <strong>{{ $comment->author_name }} </strong> on
                                 {{ $comment->created_at->format('M d,Y \a\t h:i a') }} <br/>
                                 updated at
                                 {{$comment->updated_at->format('M d,Y \a\t h:i a') }}

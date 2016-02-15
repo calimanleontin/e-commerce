@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 
 use App\Cart;
 use App\Categories;
+use App\Comments;
 use App\Profiles;
 use App\User;
 use Illuminate\Support\Facades\Session;
@@ -132,9 +133,17 @@ class UserController extends Controller
         return redirect('/')->withMessages('You logged out successfully');
     }
 
-    public function profile()
+    public function profile(Request $request)
     {
-        return view('auth.profile');
+        /**
+         * @var $user User
+         */
+        $user = $request->user();
+        $comments = $user->comments()->get();
+
+
+        return view('auth.profile')->withUser($user)
+            ->withComments($comments);
     }
     public function edit_profile(Request $request)
     {
@@ -155,17 +164,14 @@ class UserController extends Controller
 //        $profile->about = $request->input('about');
 
 
-        $destinationPath = 'images/users'; // upload path
-        $extension = Input::file('image')->getClientOriginalName(); // getting image extension
-        $fileName = rand(11111,99999).'.'.$extension; // renameing image
+        $destinationPath = 'images/users';
+        $extension = Input::file('image')->getClientOriginalName();
+        $fileName = rand(11111,99999).'.'.$extension;
         $profile->picture = $fileName;
         Input::file('image')->move($destinationPath, $fileName); // uploading file to given path
         $profile->save();
         $user->profile()->save($profile);
         return redirect ('/user-profile')->withMessage('Updates made successfully');
-
-
-
     }
 
 }
