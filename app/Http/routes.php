@@ -58,6 +58,8 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('/edit-profile','UserController@edit_profile');
         Route::get('/user-profile','UserController@profile');
         Route::post('/profile/update','UserController@update_profile');
+        Route::get('/edit/product/{id}','ProductController@edit');
+        Route::post('/update/product','ProductController@update');
 
         Route::get('order-details/{id}','CartController@order_details');
 

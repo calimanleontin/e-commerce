@@ -8,6 +8,7 @@ html {
   padding-top:5px;
   font-size: 18px;
 }
+
 .left{
   float:left;
   margin-bottom:100px;
@@ -54,7 +55,6 @@ figcaption,
 figure,
 footer,
 header,
-hgroup,
 main,
 menu,
 nav,
@@ -261,7 +261,7 @@ th {
   h2,
   h3 {
     orphans: 3;
-    widows: 3;max-
+    widows: 3;
   }
   h2,
   h3 {
@@ -292,11 +292,7 @@ th {
     border: 1px solid #ddd !important;
   }
 }
-@font-face {
-  font-family: 'Glyphicons Halflings';
-  src: url('../fonts/glyphicons-halflings-regular.eot');
-  src: url('../fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('../fonts/glyphicons-halflings-regular.woff') format('woff'), url('../fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('../fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
-}
+
 .glyphicon {
   position: relative;
   top: 1px;
@@ -6057,6 +6053,9 @@ button.close {
 }
 .affix {
   position: fixed;
+}
+.link{
+  text-decoration: none;
 }
 @-ms-viewport {
   width: device-width;

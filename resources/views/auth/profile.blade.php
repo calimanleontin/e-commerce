@@ -3,6 +3,9 @@
         <img src="../images/users/{{$user->profile()->first()->picture}}", alt='{{$user->name}}', class = 'img-responsive user-image'>
         {{ $user->name }}
 @endsection
+@section('title-meta')
+    <a href="/edit-profile">Edit Profile</a>
+@endsection
 @section('content')
     <div>
         <ul class="list-group">
@@ -17,7 +20,7 @@
         <div class="panel-body">
             <p>
             <strong>
-                First Name: {{$user->profile()->first()->firstName}}<br>
+                First Name: {{$user->profile->firstName}}<br>
                 Last Name:  {{$user->profile()->first()->lastName}}<br>
                 Birthday:   {{$user->profile()->first()->birthday}}<br>
                 Telephone:  {{$user->profile()->first()->telephoneNumber}}

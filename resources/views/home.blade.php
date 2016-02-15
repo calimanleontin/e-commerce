@@ -32,7 +32,10 @@
                 </div>
                 @if(!Auth::guest())
                 <div class="cart">
-                    <a href = '/to-cart/{{$product->id}}'>Add to cart </a>
+
+                    <a href = '/to-cart/{{$product->id}}'><button class="btn btn-default btn-success link">Add</button> </a>
+                    <a href = '/edit/product/{{$product->id}}'><button class="btn btn-default btn-success link">Edit</button> </a>
+
                 </div>
                     @endif
             </div>

@@ -71,13 +71,58 @@ class ProductController extends Controller
         if($product == NULL)
             return redirect('/')->withErrors('Requested url does not exist');
       $comments = Comments::where('on_product',$product->id)->orderBy('created_at','asc')->paginate(5);
-//        var_dump($comments->first()->content);
-//        die();
         $categories = Categories::all();
-//        $comments = $product->comments();
         return view('product.show')
             ->withProduct($product)
             ->withCategories($categories)
             ->withComments($comments);
     }
+
+    public function edit($id)
+    {
+        $product = Products::find($id);
+        $categories = Categories::all();
+        return view('product.edit')->withProduct($product)->withCategories($categories);
+    }
+
+    public function update(Request $request)
+    {
+        $id = $request->input('id');
+        $product = Products::where('id',$id)->first();
+        $name = $request->input('name');
+        $quantity = $request->input('quantity');
+        $description = $request->input('description');
+        $image = Input::file('image');
+        $categories = $request->input('category');
+        $duplicate = Products::where('name',$name)->first();
+        if($duplicate != null and $duplicate->id != $product->id)
+            return redirect('/edit/product'.$product->id)->withErrors('The name is already in use');
+        if($quantity != null)
+            $product->quantity = $quantity;
+        if($description != null)
+            $product->description = $description;
+        if($image != null)
+        {
+            $destinationPath = 'images/catalog'; // upload path
+            $extension = Input::file('image')->getClientOriginalExtension(); // getting image extension
+            $fileName = rand(11111, 99999) . '.' . $extension; // renameing image
+            $product->image = $fileName;
+            Input::file('image')->move($destinationPath, $fileName); // uploading file to given path
+        }
+        if ($categories != null)
+        {
+            $product->categories()->detach();
+            foreach($categories as $category)
+            {
+                $category = Categories::where('title',$category)->first();
+                $product->categories()->attach($category->id);
+            }
+        }
+        $product->save();
+        return redirect('/product/'.$product->slug)->withMessage('Product updated successfully');
+
+
+
+    }
+
 }
