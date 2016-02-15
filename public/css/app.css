@@ -9,10 +9,11 @@ html {
   font-size: 18px;
 }
 .left{
-  margin-right:3px;
+  float:left;
+  margin-bottom:100px;
 }
 .right{
-  float:left;
+  margin:100px;
 }
 .cart
 {
@@ -20,6 +21,10 @@ html {
   position:absolute;
   text-align:center;
   right: 70px;
+}
+.long
+{
+  min-height:300px;
 }
 .product
 {

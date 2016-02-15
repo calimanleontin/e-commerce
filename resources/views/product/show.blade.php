@@ -7,9 +7,7 @@
 
 @section('content')
 
-    <div >
-        <img src="../images/catalog/{{$product->image}}" alt="Smiley face" height=70% width=70% class = 'img-responsive'>
-    </div>
+        <img src="../images/catalog/{{$product->image}}" alt="Smiley face" class = 'img-responsive'>
     &nbsp
     <p>
         <span><strong>Description:</strong>
@@ -33,6 +31,7 @@
             <a href="/to-cart/{{$product->id}}"><button class="btn btn-primary">Add to cart</button></a>
         @endif
     </p>
+
     @if(!Auth::guest())
     Add a comment:
     <form method="post" action="/comment/store" class="form-group">
@@ -41,10 +40,10 @@
         <textarea name ='content' class="form-control" placeholder="Comment"></textarea>
         <div class="form-group">
             <br>
-        <input type="submit" value="Submit" class ='form-control-static' >
+        <input type="submit" value="Add Comment" class ='form-control-static btn btn-success' >
         </div>
-
-        @endif
+    </form>
+    @endif
 
     <div>
         @if(!empty($comments))

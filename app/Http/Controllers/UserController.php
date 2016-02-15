@@ -127,4 +127,17 @@ class UserController extends Controller
         return redirect('/')->withMessages('You logged out successfully');
     }
 
+    public function profile(Request $request)
+    {
+        $user = $request->user();
+        return view('auth.profile');
+
+
+    }
+
+    public function update_profile(Request $request)
+    {
+
+    }
+
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Categories;
 use App\Comments;
 use App\Products;
 use Illuminate\Http\Request;
@@ -49,8 +50,9 @@ class CommentController extends Controller
     {
         $comment = Comments::where('id',$id)->first();
         $user = $request->user();
+        $categories = Categories::all();
         if($user->is_admin() or $user->is_moderator() or $user->id == $comment->author_id) {
-            return view('comment.edit')->withComment($comment);
+            return view('comment.edit')->withComment($comment)->withCategories($categories);
         }
         else
             redirect ('/')->withErrors('You have not sufficient permissions');

@@ -22,7 +22,7 @@
 
 @endsection
 @section('category-title')
-    Categories
+    Categories &nbsp
 @endsection
 @section('category-content')
     @if(!empty($categories))

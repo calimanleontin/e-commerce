@@ -71,7 +71,7 @@
                     @endif
                     <li role="presentation"><a role="menuitem" tabindex="-1" href="/cart/index">My cart</a></li>
                     <li role="presentation"><a role="menuitem" tabindex="-1" href="/order-history">Order History</a> </li>
-                    <li role="presentation"><a role="menuitem" tabindex="-1" href="/user-profile">My Profile</a> </li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="/user-profile">User Profile</a> </li>
                 </ul>
             </div>
             </li>
@@ -118,17 +118,19 @@
             </div>
         </div>
 
+        @if(!empty($categories))
         <div class="col-md-2 left ">
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h2>@yield('category-title')</h2>
                     @yield('category-title-meta')
                 </div>
-                <div class="panel-body">
+                <div class="panel-body long">
                     @yield('category-content')
                 </div>
             </div>
         </div>
+        @endif
     </div>
     </div>
 
