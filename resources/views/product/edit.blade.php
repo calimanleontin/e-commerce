@@ -50,7 +50,7 @@
     @endforeach
 
     <div class="form-group">
-        {!!  Form::submit('Create',['class'=> ''])!!}
+        {!!  Form::submit('Update',['class'=> 'btn btn-primary'])!!}
     </div>
 
     {!! Form::close() !!}

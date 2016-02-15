@@ -8,7 +8,9 @@ html {
   padding-top:5px;
   font-size: 18px;
 }
-
+.little{
+  margin-top:9px;
+}
 .left{
   float:left;
   margin-bottom:100px;
@@ -16,12 +18,22 @@ html {
 .right{
   margin:100px;
 }
+.up{
+}
+.down{
+  bottom:30px;
+  left:30px;
+  right:50px;
+  position:absolute;
+  text-align:center;
+}
 .cart
 {
   bottom:0px;
   position:absolute;
   text-align:center;
-  right: 70px;
+  left:30px;
+  right: 50px;
 }
 .long
 {

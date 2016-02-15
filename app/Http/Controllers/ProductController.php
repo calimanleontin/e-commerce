@@ -104,10 +104,10 @@ class ProductController extends Controller
         if($image != null)
         {
             $destinationPath = 'images/catalog'; // upload path
-            $extension = Input::file('image')->getClientOriginalExtension(); // getting image extension
-            $fileName = rand(11111, 99999) . '.' . $extension; // renameing image
+            $extension = Input::file('image')->getClientOriginalExtension();
+            $fileName = rand(11111, 99999) . '.' . $extension;
             $product->image = $fileName;
-            Input::file('image')->move($destinationPath, $fileName); // uploading file to given path
+            Input::file('image')->move($destinationPath, $fileName);
         }
         if ($categories != null)
         {
@@ -121,7 +121,16 @@ class ProductController extends Controller
         $product->save();
         return redirect('/product/'.$product->slug)->withMessage('Product updated successfully');
 
+    }
 
+    public function search(Request $request)
+    {
+        $term = $request->get('q');
+        $categories = Categories::all();
+        $products = Products::where('name','like','%'.$term.'%')->paginate(1);
+        return view('home')->withProducts($products)
+            ->withCategories($categories)
+            ->withTerm($term);
 
     }
 

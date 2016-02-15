@@ -30,6 +30,9 @@
         @if(!Auth::guest() and $product->active == 1)
             <a href="/to-cart/{{$product->id}}"><button class="btn btn-primary">Add to cart</button></a>
         @endif
+        @if(!Auth::guest() and Auth::user()->is_admin())
+            <a href="/edit/product/{{$product->id}}"><button class="btn btn-primary">Edit</button></a>
+        @endif
     </p>
 
     @if(!Auth::guest())

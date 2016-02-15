@@ -60,6 +60,7 @@ Route::group(['middleware' => ['web']], function () {
         Route::post('/profile/update','UserController@update_profile');
         Route::get('/edit/product/{id}','ProductController@edit');
         Route::post('/update/product','ProductController@update');
+        Route::get('/search','ProductController@search');
 
         Route::get('order-details/{id}','CartController@order_details');
 
