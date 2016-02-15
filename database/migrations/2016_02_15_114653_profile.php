@@ -25,6 +25,7 @@ class Profile extends Migration
             $table->date('birthday');
             $table->string('telephoneNumber');
             $table->string('picture');
+            $table->text('about');
             $table->timestamps();
         });
     }
