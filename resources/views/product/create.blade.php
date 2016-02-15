@@ -77,7 +77,6 @@
             {!!  Form::submit('Create',['class'=> ''])!!}
         </div>
 
-
     {!! Form::close() !!}
 
 

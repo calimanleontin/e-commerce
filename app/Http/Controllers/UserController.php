@@ -1,13 +1,11 @@
 <?php
-
 namespace App\Http\Controllers;
-
 
 use App\Cart;
 use App\Categories;
+use App\Profiles;
 use App\User;
 use Illuminate\Support\Facades\Session;
-use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
@@ -41,6 +39,12 @@ class UserController extends Controller
     {
         $name = $request->input('name');
         $email = $request->input('email');
+        $duplicate_name = User::where('name',$name)->first();
+        $duplicate_email = User::where('email',$email)->first();
+        if($duplicate_name != null)
+            return redirect('/auth/register')->withErrors('Name already used');
+        if($duplicate_email != null)
+            return redirect('/auth/register')->withErrors('Email already used');
         $password = $request->input('password');
         if($name == '' || $email == '' || $password == '')
             return view('auth.register')->withName($name)->withEmail($email)->withErrors('Please fill all the fields');
@@ -54,6 +58,8 @@ class UserController extends Controller
         $user->email = $email;
         $user->password = bcrypt($password);
         $user->save();
+        $profile = new Profiles;
+        $user->profile()->save($profile);
         Auth::login($user);
         $cart = new Cart();
         $cart->setOwnerId($user->id);
@@ -137,6 +143,11 @@ class UserController extends Controller
 
     public function update_profile(Request $request)
     {
+        /**
+         * @var $user User
+         */
+        $user = $request->user();
+        $profile = $user->profile();
 
     }
 

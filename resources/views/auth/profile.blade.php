@@ -35,16 +35,20 @@
                                 {!! Form::number('age','',['class' => 'form-control']) !!}
                             </div>
 
+                            <br/>
+                            <div class="form-group">
+                                {!! Form::label('Product Image') !!}
+                                {!! Form::file('image') !!}
+                            </div>
+
                             <div class="form-group col-md-12">
                                 {!! Form::label('about','About me') !!}
                                 {!! Form::textarea('about','',['class' => 'form-control']) !!}
                             </div>
 
-
                             <div class="form-group col-md-3">
-                                {!!  Form::submit('Submit',['class'=> 'btn btn-default'])!!}
+                                {!!  Form::submit('Update',['class'=> 'btn btn-default'])!!}
                             </div>
-
 
                             {!! Form::close() !!}
 
