@@ -153,12 +153,26 @@ class CartController extends Controller
         }
         foreach($cart->getCart() as $product_id => $quantity)
         {
+            $product = Products::where('id',$product_id)->first();
+            if($product->quantity < $quantity)
+            {
+                return redirect('/cart/index')->withErrors('We are sorry, the product '.$product->name.' has only '.$product->quantity.' examples');
+            }
+            else
+            {
+                $product->quantity -= $quantity;
+                if($product->quantity == 0)
+                    $product->active = 0;
+                $product->save();
+
+            }
             $order = new Orders();
             $order->order_id = $order_id;
             $order->product_id = $product_id;
             $order->quantity = $quantity;
             $order->author_id = $request->user()->id;
             $order->save();
+//            Session::forget('cart');
         }
 
         return redirect('/')->withMessage('Order processed successfully');
