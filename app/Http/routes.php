@@ -56,6 +56,7 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('finish-cart','CartController@finish');
         Route::get('/order-history','CartController@history');
         Route::get('/user-profile','UserController@profile');
+        Route::get('order-details/{id}','CartController@order_details');
 
 
     });

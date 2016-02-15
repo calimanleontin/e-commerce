@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Cart;
 use App\Categories;
-use App\Order_History;
 use App\Orders;
 use App\Products;
 use Illuminate\Http\Request;
@@ -12,9 +11,6 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
-//set limit to product
-//decrease number when buy
-//calculate the sum + add the sum to cart
 class CartController extends Controller
 {
     /**
@@ -182,17 +178,50 @@ class CartController extends Controller
         return redirect('/')->withMessage('Order processed successfully');
     }
 
+    /**
+     * @param Request $request
+     * @return mixed
+     */
     public function history(Request $request)
     {
         $user = $request->user();
+        $categories = Categories::all();
         $orders = Orders::where('author_id',$user->id)->orderBy('created_at','asc')->paginate(10);
         for($i=1;$i<=count($orders);$i++)
         {
             if($orders[$i]->order_id == $orders[$i-1]->order_id)
                 unset($orders[$i-1]);
         }
-        return view('cart.history')->withOrders($orders);
+        return view('cart.history')
+            ->withCategories($categories)
+            ->withOrders($orders);
 
+    }
+
+    /**
+     * @param Request $request
+     * @param $order_id
+     * @return $this
+     */
+    public function order_details(Request $request, $order_id)
+    {
+        $orders = Orders::where('order_id',$order_id)->get();
+
+        if($request->user()->id == $orders->first()->author_id) {
+            $products = array();
+            $quantities = array();
+            foreach ($orders as $order) {
+                $products[] = Products::where('id', $order->product_id)->first() ;
+                $quantities[] = $order->quantity;
+            }
+            $categories =Categories::all();
+            return view('cart.details')
+                ->withProducts($products)
+                ->withQuantities($quantities)
+                ->withCategories($categories);
+        }
+        else
+            return redirect('/')->withErrors('You have not sufficient permissions');
     }
 
 }

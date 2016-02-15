@@ -24,7 +24,7 @@
                 <td scope="row"></td>
                 <td>{{$order->order_id}}</td>
                 <td>{{$order->sum}}</td>
-                <td><a href="order/{{$order->order_id}}"><button class="btn btn-success btn-group btn-block">Details</button></a></td>
+                <td><a href="order-details/{{$order->order_id}}"><button class="btn btn-success btn-group btn-block">Details</button></a></td>
             </tr>
         @endforeach
             </tbody>
