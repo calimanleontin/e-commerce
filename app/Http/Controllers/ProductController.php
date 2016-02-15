@@ -47,18 +47,13 @@ class ProductController extends Controller
         $product->slug = str_slug($request->input('name'));
         $product->active = 1;
 
-
-        $file = array('image' => Input::file('image'));
-
         $destinationPath = 'images/catalog'; // upload path
         $extension = Input::file('image')->getClientOriginalExtension(); // getting image extension
         $fileName = rand(11111,99999).'.'.$extension; // renameing image
         $product->image = $fileName;
         Input::file('image')->move($destinationPath, $fileName); // uploading file to given path
-        // sending back with message
 
         $product->save();
-
 
         if($categories)
             foreach($categories as $category)

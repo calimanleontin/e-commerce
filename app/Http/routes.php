@@ -53,6 +53,7 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('comment/delete/{id}','CommentController@delete');
         Route::get('comment/edit/{id}','CommentController@edit');
         Route::post('comment/update','CommentController@update');
+        Route::get('finish-cart','CartController@finish');
 
 
     });

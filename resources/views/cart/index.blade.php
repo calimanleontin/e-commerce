@@ -33,7 +33,7 @@
         @endfor
             </tbody>
         </table>
-        <button class="btn btn-default" a href="/finish-cart" >Purchase</button>
+       <a  href="/finish-cart" > <button class="btn btn-default">Purchase</button></a>
     @endif
 @endsection
 @section('category-title')
