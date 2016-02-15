@@ -13,8 +13,8 @@
             <thead>
             <tr>
                 <th>#</th>
-                <th>Order Number</th>
-                <th>Total Sum</th>
+                <th>Sum</th>
+                <th>Date</th>
                 <th>View Details</th>
             </tr>
             </thead>
@@ -22,8 +22,8 @@
         @foreach($orders as $order)
             <tr>
                 <td scope="row"></td>
-                <td>{{$order->order_id}}</td>
                 <td>{{$order->sum}}</td>
+                <td>{{$order->created_at}}</td>
                 <td><a href="order-details/{{$order->order_id}}"><button class="btn btn-success btn-group btn-block">Details</button></a></td>
             </tr>
         @endforeach

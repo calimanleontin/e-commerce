@@ -29,7 +29,7 @@
         </span>
     </p>
     <p>
-        @if(!Auth::guest())
+        @if(!Auth::guest() and $product->active == 1)
             <a href="/to-cart/{{$product->id}}"><button class="btn btn-primary">Add to cart</button></a>
         @endif
     </p>
