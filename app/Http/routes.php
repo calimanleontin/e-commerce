@@ -37,6 +37,13 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('auth/register', 'UserController@getRegister');
     Route::post('auth/register', 'UserController@postRegister');
     Route::get('/search','ProductController@search');
+    Route::get('/email',function(){
+        Mail::send('home',['name'=> 'leontin'],function($message){
+
+            $message->to('calimanleontin@gmail.com', 'leontin')->from('calimanleontin@gmail.com')->subject('welcome');
+        });
+    });
+
 
 
 
