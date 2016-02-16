@@ -35,9 +35,10 @@
                 @if(!Auth::guest())
                 <div class="cart" >
 
-                    <a href = '/to-cart/{{$product->id}}'><button class="btn btn-default btn-success link up">Add</button> </a>
+                    <a href = '/to-cart/{{$product->id}}'><button class="btn btn-default btn-success link up">Buy</button> </a>
+                   @if(Auth::user()->is_admin() or Auth::user()->is_moderator())
                     <a href = '/edit/product/{{$product->id}}'><button class="btn btn-default btn-success link up">Edit</button> </a>
-
+                    @endif
                 </div>
                     @endif
             </div>

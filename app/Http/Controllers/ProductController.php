@@ -78,17 +78,23 @@ class ProductController extends Controller
             ->withComments($comments);
     }
 
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
+        $user = $request->user();
         $product = Products::find($id);
+        if($user->id != $product->author_id and $user->is_admin() == false and $user->is_moderator() == false)
+            return redirect('/')->withErrors('You have not sufficient permissions ');
         $categories = Categories::all();
         return view('product.edit')->withProduct($product)->withCategories($categories);
     }
 
     public function update(Request $request)
     {
+        $user = $request->user();
         $id = $request->input('id');
         $product = Products::where('id',$id)->first();
+        if($user->id != $product->author_id and $user->is_admin() == false and $user->is_moderator() == false)
+            return redirect('/')->witheErrors('You have not sufficient permissions ');
         $name = $request->input('name');
         $quantity = $request->input('quantity');
         $description = $request->input('description');

@@ -36,6 +36,8 @@ Route::group(['middleware' => ['web']], function () {
 // Registration routes...
     Route::get('auth/register', 'UserController@getRegister');
     Route::post('auth/register', 'UserController@postRegister');
+    Route::get('/search','ProductController@search');
+
 
 
     Route::group(['middleware' => ['auth']], function()
@@ -60,7 +62,6 @@ Route::group(['middleware' => ['web']], function () {
         Route::post('/profile/update','UserController@update_profile');
         Route::get('/edit/product/{id}','ProductController@edit');
         Route::post('/update/product','ProductController@update');
-        Route::get('/search','ProductController@search');
 
         Route::get('order-details/{id}','CartController@order_details');
 
