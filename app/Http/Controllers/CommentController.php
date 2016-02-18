@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Categories;
 use App\Comments;
 use App\Products;
 use Illuminate\Http\Request;
@@ -17,9 +18,10 @@ class CommentController extends Controller
         $content = $request->input('content');
         $comment = new Comments();
         $product = Products::where('id',$product_id)->first();
-        $comment->author_id = $request->user()->id;
+        $comment->user_id = $request->user()->id;
         $comment->on_product = $product_id;
         $comment->content = $content;
+        $comment->author_name = $request->user()->name;
         $comment->save();
         return redirect('/product/'.$product->slug)->withMessage('Comment added');
 
@@ -30,7 +32,7 @@ class CommentController extends Controller
         $user = $request->user();
         $comment = Comments::where('id',$id)->first();
 
-        if($user->is_admin() or $user->is_moderator() or $user->id == $comment->author) {
+        if($user->is_admin() or $user->is_moderator() or $user->id == $comment->user_id) {
             $product = Products::where('id',$comment->on_product)->first();
 
             $comment->delete();
@@ -49,8 +51,9 @@ class CommentController extends Controller
     {
         $comment = Comments::where('id',$id)->first();
         $user = $request->user();
-        if($user->is_admin() or $user->is_moderator() or $user->id == $comment->author_id) {
-            return view('comment.edit')->withComment($comment);
+        $categories = Categories::all();
+        if($user->is_admin() or $user->is_moderator() or $user->id == $comment->user_id) {
+            return view('comment.edit')->withComment($comment)->withCategories($categories);
         }
         else
             redirect ('/')->withErrors('You have not sufficient permissions');
@@ -67,7 +70,7 @@ class CommentController extends Controller
         $comment_id = $request->input('comment_id');
         $comment = Comments::where('id',$comment_id)->first();
         $user = $request->user();
-        if($user->is_admin() or $user->is_moderator() or $user->id == $comment->author_id) {
+        if($user->is_admin() or $user->is_moderator() or $user->id == $comment->user_id) {
             $content = $request->input('content');
 
             $comment->content = $content;

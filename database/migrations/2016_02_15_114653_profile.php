@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class Comments extends Migration
+class Profile extends Migration
 {
     /**
      * Run the migrations.
@@ -12,21 +12,20 @@ class Comments extends Migration
      */
     public function up()
     {
-        Schema::create('comments', function(Blueprint $table)
+        Schema::create('profiles', function(Blueprint $table)
         {
             $table->increments('id');
-            $table->integer('on_product')->unsigned()->default(0);
-            $table->foreign('on_product')
-                ->references('id')
-                ->on('products')
-                ->onDelete('cascade');
-            $table->string('author_name');
             $table->integer('user_id')->unsigned()->default(0);
             $table->foreign('user_id')
                 ->references('id')
                 ->on('users')
                 ->onDelete('cascade');
-            $table->text('content');
+            $table->string('firstName');
+            $table->string('lastName');
+            $table->date('birthday');
+            $table->string('telephoneNumber');
+            $table->string('picture');
+            $table->text('about');
             $table->timestamps();
         });
     }
@@ -38,6 +37,6 @@ class Comments extends Migration
      */
     public function down()
     {
-        Schema::drop('comments');
+        //
     }
 }

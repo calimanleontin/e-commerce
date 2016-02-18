@@ -20,6 +20,6 @@ class Comments extends Model
      */
     public function product()
     {
-        return $this->belongsTo('App\Products');
+        return $this->belongsTo('App\Products','on_product');
     }
 }

@@ -40,7 +40,14 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <li>
+
                     <a href="{{ url('/') }}">Home</a>
+                </li>
+                <li>
+                    <form action="/search" method = 'get' class="form-group form form-inline down-search">
+                        <input type="text" name="q" placeholder="Search..." class="form-control">
+                        <input type="submit" class='form-control left-search' value="Search">
+                    </form>
                 </li>
 
             </ul>
@@ -70,8 +77,9 @@
                         <li role="presentation"><a role="menuitem" tabindex="-1" href="/product/create">Add product</a></li>
                     @endif
                     <li role="presentation"><a role="menuitem" tabindex="-1" href="/cart/index">My cart</a></li>
-
-
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="/order-history">Order History</a> </li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="/user-profile">User Profile</a> </li>
+                </ul>
             </div>
             </li>
                 </ul>
@@ -117,17 +125,19 @@
             </div>
         </div>
 
+        @if(!empty($categories))
         <div class="col-md-2 left ">
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h2>@yield('category-title')</h2>
                     @yield('category-title-meta')
                 </div>
-                <div class="panel-body">
+                <div class="panel-body long">
                     @yield('category-content')
                 </div>
             </div>
         </div>
+        @endif
     </div>
     </div>
 

@@ -1,13 +1,13 @@
 <?php
-
 namespace App\Http\Controllers;
-
 
 use App\Cart;
 use App\Categories;
+use App\Comments;
+use App\Profiles;
 use App\User;
 use Illuminate\Support\Facades\Session;
-use Validator;
+use Illuminate\Support\Facades\Input;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
@@ -41,6 +41,12 @@ class UserController extends Controller
     {
         $name = $request->input('name');
         $email = $request->input('email');
+        $duplicate_name = User::where('name',$name)->first();
+        $duplicate_email = User::where('email',$email)->first();
+        if($duplicate_name != null)
+            return redirect('/auth/register')->withErrors('Name already used');
+        if($duplicate_email != null)
+            return redirect('/auth/register')->withErrors('Email already used');
         $password = $request->input('password');
         if($name == '' || $email == '' || $password == '')
             return view('auth.register')->withName($name)->withEmail($email)->withErrors('Please fill all the fields');
@@ -54,6 +60,8 @@ class UserController extends Controller
         $user->email = $email;
         $user->password = bcrypt($password);
         $user->save();
+        $profile = new Profiles;
+        $user->profile()->save($profile);
         Auth::login($user);
         $cart = new Cart();
         $cart->setOwnerId($user->id);
@@ -93,8 +101,6 @@ class UserController extends Controller
                 $cart->setQuantity($key,$value);
             }
         }
-//        var_dump($cart->getCart());
-//        die();
         $cart->setOwnerId($user->id);
         Session::put('cart',$cart);
         if (Hash::check($password, $user->password)) {
@@ -125,6 +131,47 @@ class UserController extends Controller
         Auth::logout();
         Session::forget('cart');
         return redirect('/')->withMessages('You logged out successfully');
+    }
+
+    public function profile(Request $request)
+    {
+        /**
+         * @var $user User
+         */
+        $user = $request->user();
+        $comments = $user->comments()->get();
+
+
+        return view('auth.profile')->withUser($user)
+            ->withComments($comments);
+    }
+    public function edit_profile(Request $request)
+    {
+        return view('auth.edit_profile');
+    }
+
+    public function update_profile(Request $request)
+    {
+        /**
+         * @var $user User
+         */
+        $user = $request->user();
+        $profile = $user->profile()->first();
+        $profile->firstName = $request->input('firstName');
+        $profile->lastName = $request->input('lastName');
+        $profile->birthday = $request->input('birthday');
+        $profile->telephoneNumber = $request->input('telephone');
+//        $profile->about = $request->input('about');
+
+
+        $destinationPath = 'images/users';
+        $extension = Input::file('image')->getClientOriginalName();
+        $fileName = rand(11111,99999).'.'.$extension;
+        $profile->picture = $fileName;
+        Input::file('image')->move($destinationPath, $fileName); // uploading file to given path
+        $profile->save();
+        $user->profile()->save($profile);
+        return redirect ('/user-profile')->withMessage('Updates made successfully');
     }
 
 }

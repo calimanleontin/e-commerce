@@ -26,6 +26,8 @@
 
 
 Route::group(['middleware' => ['web']], function () {
+    Route::get('/sort','ProductController@sort');
+
     Route::get('/home',['as' => 'home', 'uses' => 'ProductController@index']);
     Route::GEt('/','ProductController@index');
 
@@ -33,9 +35,20 @@ Route::group(['middleware' => ['web']], function () {
     Route::post('auth/login', 'UserController@postLogin');
     Route::get('auth/logout', 'UserController@getLogout');
 
-// Registration routes...
     Route::get('auth/register', 'UserController@getRegister');
     Route::post('auth/register', 'UserController@postRegister');
+    Route::get('/search','ProductController@search');
+
+
+
+    Route::get('/email',function(){
+        Mail::send('home',['name'=> 'leontin'],function($message){
+
+            $message->to('calimanleontin@gmail.com', 'leontin')->from('calimanleontin@gmail.com')->subject('welcome');
+        });
+    });
+
+
 
 
     Route::group(['middleware' => ['auth']], function()
@@ -53,6 +66,15 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('comment/delete/{id}','CommentController@delete');
         Route::get('comment/edit/{id}','CommentController@edit');
         Route::post('comment/update','CommentController@update');
+        Route::get('finish-cart','CartController@finish');
+        Route::get('/order-history','CartController@history');
+        Route::get('/edit-profile','UserController@edit_profile');
+        Route::get('/user-profile','UserController@profile');
+        Route::post('/profile/update','UserController@update_profile');
+        Route::get('/edit/product/{id}','ProductController@edit');
+        Route::post('/update/product','ProductController@update');
+
+        Route::get('order-details/{id}','CartController@order_details');
 
 
     });

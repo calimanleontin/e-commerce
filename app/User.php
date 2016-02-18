@@ -41,6 +41,11 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         return $this->hasMany('App\Categories');
     }
 
+    public function comments()
+    {
+        return $this->hasMany('App\Comments');
+    }
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
@@ -91,6 +96,11 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         if($this->is_admin() || $this->is_moderator())
             return true;
         return false;
+    }
+
+    public function profile()
+    {
+        return $this->hasOne('App\Profiles');
     }
 
 }

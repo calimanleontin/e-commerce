@@ -12,34 +12,17 @@ class OrderHistory extends Migration
      */
     public function up()
     {
-        Schema::create('order_history',function(Blueprint $table)
-        {
+        Schema::create('orders', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('owner')->unsigned()->default(0);
-            $table->foreign('owner')
-                ->references('id')
-                ->on('users')
-                ->onDelete('cascade');
+            $table->integer('author_id');
+            $table->string('order_id');
+            $table->integer('product_id');
+            $table->integer('quantity');
+            $table->bigInteger('sum');
             $table->timestamps();
-
-        });
-
-        Schema::create('order_history-products', function(Blueprint $table)
-        {
-
-            $table->integer('order_history_id')->unsigned()->index();
-            $table->foreign('order_history_id')
-                ->references('id')
-                ->on('order_history')
-                ->onDelete('cascade');
-            $table->integer('product_id')->unsigned()->index();
-            $table->foreign('product_id')
-                ->references('id')
-                ->on('products')
-                ->onDelete('cascade');
-
         });
     }
+
 
     /**
      * Reverse the migrations.
@@ -48,6 +31,6 @@ class OrderHistory extends Migration
      */
     public function down()
     {
-        Schema::drop('order_history');
+        Schema::drop('orders');
     }
 }

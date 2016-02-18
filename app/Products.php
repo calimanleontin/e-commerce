@@ -41,5 +41,12 @@ class Products extends Model
         return $this->belongsToMany('App\Orders')->withTimestamps();
     }
 
+    public function decreaseQuantity($product_id, $number)
+    {
+        $product = Products::where('id',$product_id)->first();
+        $product->quantity -= $number;
+        $product->save();
+    }
+
 
 }

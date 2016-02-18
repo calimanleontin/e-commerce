@@ -20,7 +20,7 @@
             <tbody>
         @for($i=0;$i<count($products);$i++)
             <tr>
-                <th scope="row">1</th>
+                <th scope="row">{{$i+1}}</th>
                 <td><a href="/product/{{$products[$i]->slug}}"> {{$products[$i]->name}} </a></td>
                 <td>{{$quantities[$i]}}</td>
                 <td>{{$products[$i]->price}}</td>
@@ -33,7 +33,7 @@
         @endfor
             </tbody>
         </table>
-        <button class="btn btn-default" a href="/finish-cart" >Purchase</button>
+       <a  href="/finish-cart" > <button class="btn btn-default">Purchase</button></a>
     @endif
 @endsection
 @section('category-title')

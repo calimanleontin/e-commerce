@@ -7,9 +7,7 @@
 
 @section('content')
 
-    <div >
-        <img src="../images/catalog/{{$product->image}}" alt="Smiley face" height=70% width=70% class = 'img-responsive'>
-    </div>
+        <img src="../images/catalog/{{$product->image}}" alt="Smiley face" class = 'img-responsive'>
     &nbsp
     <p>
         <span><strong>Description:</strong>
@@ -28,6 +26,15 @@
             {!! $product->quantity !!}
         </span>
     </p>
+    <p>
+        @if(!Auth::guest() and $product->active == 1)
+            <a href="/to-cart/{{$product->id}}"><button class="btn btn-primary">Add to cart</button></a>
+        @endif
+        @if(!Auth::guest() and Auth::user()->is_admin())
+            <a href="/edit/product/{{$product->id}}"><button class="btn btn-primary">Edit</button></a>
+        @endif
+    </p>
+
     @if(!Auth::guest())
     Add a comment:
     <form method="post" action="/comment/store" class="form-group">
@@ -36,10 +43,10 @@
         <textarea name ='content' class="form-control" placeholder="Comment"></textarea>
         <div class="form-group">
             <br>
-        <input type="submit" value="Submit" class ='form-control-static' >
+        <input type="submit" value="Add Comment" class ='form-control-static btn btn-success' >
         </div>
-
-        @endif
+    </form>
+    @endif
 
     <div>
         @if(!empty($comments))
@@ -48,7 +55,7 @@
                     <li class="panel-body">
                         <div class="list-group">
                             <div class="list-group-item">
-                                <p> <strong>{{ $comment->author->name }} </strong> on
+                                <p> <strong>{{ $comment->author_name }} </strong> on
                                 {{ $comment->created_at->format('M d,Y \a\t h:i a') }} <br/>
                                 updated at
                                 {{$comment->updated_at->format('M d,Y \a\t h:i a') }}
