@@ -187,7 +187,7 @@ class CartController extends Controller
         $user = $request->user();
         $categories = Categories::all();
         $orders = Orders::where('author_id',$user->id)->orderBy('created_at','asc')->paginate(10);
-        for($i=1;$i<=count($orders);$i++)
+        for($i=1;$i<count($orders);$i++)
         {
             if($orders[$i]->order_id == $orders[$i-1]->order_id)
                 unset($orders[$i-1]);

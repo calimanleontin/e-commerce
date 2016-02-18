@@ -46,7 +46,10 @@
         <input type="submit" value="Add Comment" class ='form-control-static btn btn-success' >
         </div>
     </form>
+        @else
+        You have to be logged in to comment. Log in <a href ='/auth/login'>here</a>.
     @endif
+
 
     <div>
         @if(!empty($comments))
