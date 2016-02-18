@@ -1,10 +1,28 @@
 @extends('app')
 @section('title')
+    <span>
     @if(!empty($title))
         {{$title}}
         @else
         Welcome to my shop
     @endif
+            <form method="get" action='{{ url("/sort") }}' role="form" class="form-inline mini">
+                <div class="form-group">
+                    <select name = "criterion" class = 'form-control'>
+                        <option value="price">Price</option>
+                        <option value = 'created_at'>Date</option>
+                        <option value = 'likes'>Likes</option>
+                        <option value="noComments">Comments</option>
+                    </select>
+                    <select name="order" class="form-control">
+                        <option value="asc">ascending</option>
+                        <option value="desc">descending</option>
+                    </select>
+
+                </div>
+                <button type="submit" class="btn btn-default">Sort</button>
+            </form>
+    </span>
 
     @endsection
 @section('content')
@@ -43,7 +61,10 @@
                     @endif
             </div>
         @endforeach
-        @if(!empty($term))
+        @if(!empty($order))
+            <?php echo $products->appends(['order' => $order,'criterion'=>$criterion])->render(); ?>
+
+        @elseif(!empty($term))
             <?php echo $products->appends(['q' => $term])->render(); ?>
         @else
             {!! $products->render() !!}

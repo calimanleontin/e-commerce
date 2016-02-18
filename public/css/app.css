@@ -8,6 +8,12 @@ html {
   padding-top:5px;
   font-size: 18px;
 }
+.mini-title
+{
+  font-size: 14px;
+  width:200px;
+
+}
 .little{
   margin-top:9px;
 }
@@ -15,10 +21,17 @@ html {
   float:left;
   margin-bottom:100px;
 }
+.left-search
+{
+  max-width:100px;
+}
 .right{
   margin:100px;
 }
 .up{
+}
+.down-search{
+  margin-top:9px;
 }
 .down{
   bottom:30px;

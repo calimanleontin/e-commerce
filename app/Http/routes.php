@@ -26,6 +26,8 @@
 
 
 Route::group(['middleware' => ['web']], function () {
+    Route::get('/sort','ProductController@sort');
+
     Route::get('/home',['as' => 'home', 'uses' => 'ProductController@index']);
     Route::GEt('/','ProductController@index');
 
@@ -33,10 +35,12 @@ Route::group(['middleware' => ['web']], function () {
     Route::post('auth/login', 'UserController@postLogin');
     Route::get('auth/logout', 'UserController@getLogout');
 
-// Registration routes...
     Route::get('auth/register', 'UserController@getRegister');
     Route::post('auth/register', 'UserController@postRegister');
     Route::get('/search','ProductController@search');
+
+
+
     Route::get('/email',function(){
         Mail::send('home',['name'=> 'leontin'],function($message){
 

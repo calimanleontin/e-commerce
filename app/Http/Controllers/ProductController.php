@@ -18,7 +18,9 @@ class ProductController extends Controller
     {
         $products = Products::where('active',1)->paginate(9);
         $categories = Categories::all();
-        return view('home')->withProducts($products)->withCategories($categories);
+        return view('home')
+            ->withProducts($products)
+            ->withCategories($categories);
     }
     public function create(Request $request)
     {
@@ -133,11 +135,23 @@ class ProductController extends Controller
     {
         $term = $request->get('q');
         $categories = Categories::all();
-        $products = Products::where('name','like','%'.$term.'%')->paginate(1);
+        $products = Products::where('name','like','%'.$term.'%')->paginate(9);
         return view('home')->withProducts($products)
             ->withCategories($categories)
             ->withTerm($term);
 
+    }
+    public function sort(Request $request)
+    {
+        $criterion = $request->get('criterion');
+        $order = $request->get('order');
+        $categories = Categories::all();
+        $products = Products::where('active',1)->orderBy($criterion,$order)->paginate(9);
+        return view('home')->withProducts($products)
+            ->withTitle('Sort results')
+            ->withCategories($categories)
+            ->withOrder($order)
+            ->withCriterion($criterion);
     }
 
 }

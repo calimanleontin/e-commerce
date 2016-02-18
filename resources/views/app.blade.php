@@ -44,8 +44,9 @@
                     <a href="{{ url('/') }}">Home</a>
                 </li>
                 <li>
-                    <form action="/search" method = 'get' class="form-group">
-                        <div class="little"><input type="text" name="q" placeholder="Search..." class="form-control"></div>
+                    <form action="/search" method = 'get' class="form-group form form-inline down-search">
+                        <input type="text" name="q" placeholder="Search..." class="form-control">
+                        <input type="submit" class='form-control left-search' value="Search">
                     </form>
                 </li>
 
